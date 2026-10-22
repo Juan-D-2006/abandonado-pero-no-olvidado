@@ -1,0 +1,13 @@
+{
+  "name": "abandonado-pero-no-olvidado",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Biblioteca virtual del hardware que la NASA dejó en la Luna, Marte y el espacio profundo (Supabase + Render).",
+  "type": "module",
+  "scripts": {
+    "data": "node scripts/build-data.mjs",
+    "build": "node scripts/build-config.mjs",
+    "dev": "node scripts/build-config.mjs && npx --yes serve public -l 5173"
+  },
+  "engines": { "node": ">=18" }
+}

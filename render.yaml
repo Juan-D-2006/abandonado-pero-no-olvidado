@@ -1,0 +1,16 @@
+# Blueprint de Render: New > Blueprint > conecta este repositorio.
+services:
+  - type: web
+    name: abandonado-pero-no-olvidado
+    runtime: static
+    buildCommand: node scripts/build-config.mjs
+    staticPublishPath: ./public
+    envVars:
+      - key: SUPABASE_URL
+        sync: false   # Render te pedirá el valor al crear el servicio
+      - key: SUPABASE_ANON_KEY
+        sync: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
