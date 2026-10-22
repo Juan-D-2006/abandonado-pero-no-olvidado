@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abandonado pero no olvidado</title>
+  <meta name="description" content="Biblioteca virtual de las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo.">
+  <meta name="theme-color" content="#0f1219">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="room" id="room">
+    <header class="masthead">
+      <h1>Abandonado<br><em>pero no olvidado</em></h1>
+      <p class="lede">La biblioteca de las máquinas que la NASA dejó en la Luna, en Marte y camino a las estrellas. Elige un lomo para sacar el libro del estante.</p>
+    </header>
+
+    <div class="controls" role="search">
+      <div class="segmented" role="radiogroup" aria-label="Estante">
+        <button type="button" role="radio" aria-checked="true" data-loc="todo">Todo</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="luna">Luna</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="marte">Marte</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="espacio">Espacio profundo</button>
+      </div>
+      <label class="search">
+        <span class="search-icon" data-icon="search"></span>
+        <span class="sr-only">Buscar un objeto</span>
+        <input id="q" type="search" placeholder="Buscar: rover, Voyager, hielo…" autocomplete="off">
+      </label>
+      <div class="legend" id="legend" aria-label="Filtrar por estado"></div>
+    </div>
+
+    <p class="empty" id="empty" hidden></p>
+
+    <main class="bookcase" id="bookcase" aria-live="polite">
+      <p class="loading">Desempolvando los estantes…</p>
+    </main>
+
+    <section class="suggest" id="sugerir" aria-labelledby="sugerir-t">
+      <div class="suggest-copy">
+        <h2 id="sugerir-t">¿Falta un libro?</h2>
+        <p>Hay más de 100 objetos de la NASA repartidos por el sistema solar. Propón uno y lo revisaremos para el próximo estante.</p>
+      </div>
+      <form id="suggest-form" class="suggest-form" novalidate>
+        <label>Objeto o misión
+          <input name="objeto" required minlength="2" maxlength="120" placeholder="Ej.: Lunar Prospector">
+        </label>
+        <label>¿Dónde está?
+          <select name="ubicacion">
+            <option value="luna">Luna</option>
+            <option value="marte">Marte</option>
+            <option value="espacio">Espacio profundo</option>
+          </select>
+        </label>
+        <label class="wide">¿Por qué merece un libro?
+          <textarea name="motivo" rows="3" maxlength="600" placeholder="Cuéntanos qué hizo y qué descubrió"></textarea>
+        </label>
+        <label>Tu nombre <span class="opt">(opcional)</span>
+          <input name="autor" maxlength="60" placeholder="Ej.: 5.º B">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Enviar sugerencia</button>
+          <p class="form-msg" id="form-msg" role="status"></p>
+        </div>
+      </form>
+    </section>
+
+    <footer class="colophon">
+      <p>Datos: <span id="source-label">—</span> · Textos basados en archivos públicos de la NASA (enlaces dentro de cada libro).</p>
+      <p>Proyecto escolar inspirado en el reto «Abandonado pero no olvidado» del NASA Space Apps Challenge 2026. No es un sitio oficial de la NASA.</p>
+    </footer>
+  </div>
+
+  <!-- Lector: el libro abierto -->
+  <div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Libro abierto" hidden>
+    <div class="reader-backdrop" data-close></div>
+    <button type="button" class="reader-close" data-close aria-label="Devolver al estante"><span data-icon="close"></span><span class="lbl">Devolver al estante</span></button>
+    <div class="stage" id="stage">
+      <div class="book" id="book"></div>
+    </div>
+    <div class="reader-nav">
+      <button type="button" class="nav-btn" id="prev" aria-label="Página anterior"><span data-icon="prev"></span></button>
+      <p class="page-label" id="page-label" aria-live="polite"></p>
+      <button type="button" class="nav-btn" id="next" aria-label="Página siguiente"><span data-icon="next"></span></button>
+    </div>
+  </div>
+  <div class="fly-layer" id="fly-layer" aria-hidden="true"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/data-local.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
