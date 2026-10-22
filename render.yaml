@@ -3,7 +3,7 @@ services:
   - type: web
     name: abandonado-pero-no-olvidado
     runtime: static
-    buildCommand: node scripts/build-config.mjs
+    buildCommand: node scripts/build-data.mjs && node scripts/build-config.mjs
     staticPublishPath: ./public
     envVars:
       - key: SUPABASE_URL
