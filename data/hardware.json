@@ -1,0 +1,409 @@
+[
+  {
+    "slug": "rover-lunar-lrv",
+    "name": "Rover Lunar (LRV)",
+    "mission": "Apollo 15, 16 y 17",
+    "location": "luna",
+    "kind": "rover",
+    "year": 1971,
+    "arrived": "Julio de 1971 (Apollo 15)",
+    "ended": "Diciembre de 1972 (Apollo 17)",
+    "status": "inactivo",
+    "place": "Hadley-Apeninos, Descartes y Taurus-Littrow",
+    "stats": [["Rovers en la Luna", "3"], ["Peso en la Tierra", "210 kg"], ["Recorrido Apollo 17", "35,7 km"]],
+    "story": "Imagina un auto que viaja doblado como una silla de playa dentro de una nave espacial. Así llegó el Rover Lunar: plegado a un costado del módulo de aterrizaje. Los astronautas tiraban de unas cintas y el auto se desplegaba solo. Con él, las tripulaciones de Apollo 15, 16 y 17 pudieron alejarse kilómetros del lugar de aterrizaje para buscar rocas antiguas. Al terminar cada misión, el rover se quedó estacionado en la Luna. No había espacio para traerlo de regreso, así que hoy hay tres autos eléctricos parados en la superficie lunar.",
+    "science": "El rover usaba baterías de plata y zinc que no se podían recargar, y cada rueda tenía su propio motor eléctrico. Sus llantas no eran de goma: eran una malla de alambre de acero con placas de titanio, porque el caucho se habría dañado con el frío y el calor extremos. Gracias a esas distancias recorridas, los astronautas recogieron muestras de distintos terrenos, entre ellas la famosa «Roca Génesis» de Apollo 15, un fragmento de la corteza lunar más antigua.",
+    "today": "Los tres rovers siguen donde los dejaron, sin energía. La sonda LRO de la NASA los ha fotografiado desde la órbita, y en las imágenes todavía se ven las huellas de sus ruedas, porque en la Luna no hay viento ni lluvia que las borre.",
+    "fun": "En Apollo 17 se rompió un guardabarros. Los astronautas lo repararon con cinta adhesiva y mapas plastificados. Además, la cámara del rover, controlada desde Houston, filmó el despegue de la nave de regreso: ¡nadie estaba allí para grabarlo!",
+    "sources": [
+      {"title": "NSSDCA: Apollo Lunar Roving Vehicle", "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_lrv.html"},
+      {"title": "LROC: imágenes de los sitios Apollo", "url": "https://www.lroc.asu.edu/"}
+    ]
+  },
+  {
+    "slug": "retrorreflectores-apollo",
+    "name": "Retrorreflectores láser",
+    "mission": "Apollo 11, 14 y 15",
+    "location": "luna",
+    "kind": "reflector",
+    "year": 1969,
+    "arrived": "21 de julio de 1969 (Apollo 11)",
+    "ended": "Sigue en uso",
+    "status": "activo",
+    "place": "Mar de la Tranquilidad, Fra Mauro y Hadley",
+    "stats": [["Prismas Apollo 15", "300"], ["Precisión actual", "milímetros"], ["Energía necesaria", "ninguna"]],
+    "story": "Entre todo lo que los astronautas dejaron en la Luna, hay un objeto que todavía trabaja todos los días, y ni siquiera necesita electricidad. Es un panel lleno de pequeños prismas de vidrio llamado retrorreflector. Neil Armstrong y Buzz Aldrin colocaron el primero en 1969. Después, Apollo 14 y Apollo 15 dejaron dos más. Desde entonces, observatorios en la Tierra les disparan rayos láser y esperan a que la luz rebote de vuelta.",
+    "science": "Un prisma de esquina devuelve la luz exactamente hacia donde vino. Si medimos cuánto tarda el láser en ir y volver (unos 2,5 segundos), sabemos la distancia a la Luna con una precisión de milímetros. Así se descubrió que la Luna se aleja de la Tierra unos 3,8 centímetros cada año. Estas medidas también sirven para poner a prueba la teoría de la relatividad de Einstein.",
+    "today": "Es uno de los pocos experimentos de Apollo que sigue activo. De los billones de fotones que se envían, apenas unos pocos regresan, así que los científicos necesitan telescopios grandes y detectores muy sensibles.",
+    "fun": "Los retrorreflectores funcionan como los «ojos de gato» de una bicicleta o las cintas reflectivas de un chaleco de seguridad. ¡La misma idea, pero a 384.000 kilómetros de distancia!",
+    "sources": [
+      {"title": "NSSDCA: Programa Apollo", "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo.html"},
+      {"title": "APOLLO: Apache Point Lunar Laser Ranging", "url": "https://tmurphy.physics.ucsd.edu/apollo/"}
+    ]
+  },
+  {
+    "slug": "eagle-etapa-descenso",
+    "name": "Etapa de descenso del Eagle",
+    "mission": "Apollo 11",
+    "location": "luna",
+    "kind": "lander",
+    "year": 1969,
+    "arrived": "20 de julio de 1969",
+    "ended": "21 de julio de 1969",
+    "status": "inactivo",
+    "place": "Mar de la Tranquilidad",
+    "stats": [["Etapas de descenso en la Luna", "6"], ["Tiempo en la superficie", "21,5 horas"], ["Objetos dejados", "más de 100"]],
+    "story": "El módulo lunar Eagle tenía dos partes. La de arriba llevaba a los astronautas; la de abajo, con sus patas doradas, era el motor de aterrizaje. Cuando Armstrong y Aldrin terminaron su paseo, la parte superior despegó usando la de abajo como plataforma de lanzamiento. La etapa de descenso se quedó para siempre en el Mar de la Tranquilidad, rodeada de huellas, bolsas, botas y herramientas que ya no se necesitaban.",
+    "science": "Su motor fue de los primeros cohetes que se podían acelerar y frenar como el pedal de un auto, algo indispensable para posarse suavemente. Durante el descenso, Armstrong tuvo que pilotar a mano para esquivar un campo de rocas, y aterrizó con menos de un minuto de combustible de reserva. Esa experiencia ayudó a diseñar los aterrizajes de las misiones siguientes.",
+    "today": "Sigue en su lugar, junto a otras cinco etapas de descenso de Apollo. La sonda LRO ha fotografiado el sitio: se distingue la nave y los caminos que dejaron los astronautas al caminar.",
+    "fun": "En una de sus patas hay una placa que dice: «Aquí, hombres del planeta Tierra pisaron por primera vez la Luna. Julio de 1969 d. C. Vinimos en paz en nombre de toda la humanidad».",
+    "sources": [
+      {"title": "NSSDCA: Apollo 11", "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo11info.html"},
+      {"title": "NASA History: Catálogo de material artificial en la Luna (PDF)", "url": "https://history.nasa.gov/FINAL%20Catalogue%20of%20Manmade%20Material%20on%20the%20Moon.pdf"}
+    ]
+  },
+  {
+    "slug": "alsep-sismometros",
+    "name": "Estaciones científicas ALSEP",
+    "mission": "Apollo 12, 14, 15, 16 y 17",
+    "location": "luna",
+    "kind": "instrument",
+    "year": 1969,
+    "arrived": "Noviembre de 1969 (Apollo 12)",
+    "ended": "30 de septiembre de 1977",
+    "status": "inactivo",
+    "place": "Cinco sitios de aterrizaje Apollo",
+    "stats": [["Estaciones", "5"], ["Años midiendo", "casi 8"], ["Fuente de energía", "plutonio-238"]],
+    "story": "Los astronautas solo podían quedarse unos días en la Luna, pero querían seguir escuchándola después de irse. Por eso dejaron pequeños laboratorios automáticos llamados ALSEP. Cada uno tenía sismómetros, medidores de calor, detectores de viento solar y una antena para enviar datos a la Tierra. Durante casi ocho años, estas estaciones enviaron información sin descanso, hasta que la NASA las apagó en 1977.",
+    "science": "Los sismómetros descubrieron que la Luna tiene «lunamotos». Para estudiar su interior, la NASA estrelló a propósito partes de cohetes contra la superficie. Tras uno de esos impactos, la Luna vibró como una campana durante cerca de una hora. Con esas vibraciones se supo que la Luna tiene capas: corteza, manto y un núcleo. La energía venía de un generador que convertía el calor del plutonio en electricidad.",
+    "today": "Las estaciones siguen en la Luna, apagadas. Sus datos, sin embargo, se siguen estudiando: científicos de hoy los analizan con computadoras modernas y encuentran nuevos lunamotos que antes pasaron desapercibidos.",
+    "fun": "Apollo 11 llevó una versión más sencilla llamada EASEP. Su sismómetro registró hasta las pisadas de Armstrong y Aldrin caminando cerca.",
+    "sources": [
+      {"title": "LPI: Misiones Apollo y sus experimentos", "url": "https://www.lpi.usra.edu/lunar/missions/apollo/"},
+      {"title": "NSSDCA: Programa Apollo", "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo.html"}
+    ]
+  },
+  {
+    "slug": "surveyor-3",
+    "name": "Surveyor 3",
+    "mission": "Programa Surveyor",
+    "location": "luna",
+    "kind": "lander",
+    "year": 1967,
+    "arrived": "20 de abril de 1967",
+    "ended": "Mayo de 1967",
+    "status": "inactivo",
+    "place": "Océano de las Tormentas",
+    "stats": [["Rebotes al aterrizar", "3"], ["Visitantes humanos", "2"], ["Años de espera", "2,5"]],
+    "story": "Antes de enviar personas, la NASA necesitaba saber si el suelo lunar aguantaría el peso de una nave. Para eso envió los robots Surveyor. Surveyor 3 tuvo un aterrizaje accidentado: sus motores no se apagaron a tiempo y rebotó tres veces antes de quedarse quieto. Aun así, funcionó, tomó miles de fotos y cavó zanjas con su brazo. Dos años y medio después recibió una visita inesperada: los astronautas de Apollo 12 aterrizaron a unos 180 metros.",
+    "science": "Su pala mecánica demostró que la superficie era firme, como arena húmeda compacta, y que una nave tripulada no se hundiría. Cuando Pete Conrad y Alan Bean visitaron a Surveyor 3, cortaron su cámara y otras piezas para traerlas a la Tierra. Así los científicos pudieron estudiar cómo afecta el ambiente lunar a los materiales después de años expuestos.",
+    "today": "La mayor parte de la nave sigue en el Océano de las Tormentas. Su cámara está en el Museo Nacional del Aire y el Espacio del Smithsonian, en Washington.",
+    "fun": "Durante años se dijo que unas bacterias terrestres sobrevivieron en la cámara. Hoy se cree que se contaminó al abrirla en la Tierra: una buena lección sobre por qué la ciencia siempre vuelve a revisar sus resultados.",
+    "sources": [
+      {"title": "NASA Science: Surveyor 3", "url": "https://science.nasa.gov/mission/surveyor-3/"},
+      {"title": "NSSDCA: Programa Surveyor", "url": "https://nssdc.gsfc.nasa.gov/planetary/lunar/surveyor.html"}
+    ]
+  },
+  {
+    "slug": "lcross",
+    "name": "LCROSS",
+    "mission": "Lunar Crater Observation and Sensing Satellite",
+    "location": "luna",
+    "kind": "impactor",
+    "year": 2009,
+    "arrived": "Junio de 2009 (lanzamiento)",
+    "ended": "9 de octubre de 2009",
+    "status": "impacto",
+    "place": "Cráter Cabeus, polo sur lunar",
+    "stats": [["Impactos", "2"], ["Separación entre choques", "4 minutos"], ["Hallazgo", "agua"]],
+    "story": "Algunas naves terminan su misión estrellándose... a propósito. LCROSS viajó a la Luna junto con la etapa superior de su cohete, llamada Centauro. Cerca del polo sur, ambas se separaron. Primero, el Centauro chocó contra el fondo oscuro del cráter Cabeus y levantó una enorme nube de polvo. LCROSS voló a través de esa nube, midiendo todo lo que podía, y cuatro minutos después también se estrelló.",
+    "science": "El fondo de algunos cráteres polares nunca recibe luz del Sol y es uno de los lugares más fríos del sistema solar. Los científicos sospechaban que allí podía haber hielo escondido. Los instrumentos de LCROSS detectaron agua en la nube de material levantado. Fue una prueba clave de que la Luna guarda hielo en sus polos.",
+    "today": "Los restos de LCROSS y del Centauro están en el cráter Cabeus. Su descubrimiento hoy guía los planes para explorar el polo sur lunar, donde el agua podría servir para beber o fabricar combustible.",
+    "fun": "Mucha gente se reunió a mirar el choque con telescopios esperando un gran destello... que no se vio desde la Tierra. Lo importante estaba en los datos, no en el espectáculo.",
+    "sources": [
+      {"title": "NASA Science: LCROSS", "url": "https://science.nasa.gov/mission/lcross/"}
+    ]
+  },
+  {
+    "slug": "lro",
+    "name": "Lunar Reconnaissance Orbiter",
+    "mission": "LRO",
+    "location": "luna",
+    "kind": "orbiter",
+    "year": 2009,
+    "arrived": "Junio de 2009",
+    "ended": "Sigue en órbita",
+    "status": "activo",
+    "place": "Órbita lunar",
+    "stats": [["Años en órbita", "más de 17"], ["Lanzado junto a", "LCROSS"], ["Fotos de sitios Apollo", "las 6"]],
+    "story": "Esta nave no está abandonada: es la cuidadora de todo lo que otros dejaron. LRO llegó a la Luna en 2009 y desde entonces gira a su alrededor tomando fotografías y midiendo su superficie. Gracias a ella podemos ver, desde la Tierra, los módulos de Apollo, los rovers estacionados y hasta los caminos marcados por las botas de los astronautas.",
+    "science": "LRO construyó los mapas más detallados de la Luna que existen. Su cámara puede distinguir objetos del tamaño de una mesa, y otros instrumentos miden la temperatura del suelo y buscan hielo en los cráteres. Con estos mapas se eligen lugares seguros para futuras misiones tripuladas.",
+    "today": "Sigue activa después de más de 17 años, muchos más de los previstos. Es como un archivo vivo: cada foto nueva ayuda a ver cómo cambia la superficie y a encontrar nuevos cráteres formados por meteoritos.",
+    "fun": "LRO fotografió el lugar donde se estrellaron otras naves, como las sondas gemelas GRAIL, y así confirmó el punto exacto de sus impactos.",
+    "sources": [
+      {"title": "NASA Science: LRO", "url": "https://science.nasa.gov/mission/lro/"},
+      {"title": "LROC: cámara de LRO", "url": "https://www.lroc.asu.edu/"}
+    ]
+  },
+  {
+    "slug": "viking-1",
+    "name": "Viking 1",
+    "mission": "Programa Viking",
+    "location": "marte",
+    "kind": "lander",
+    "year": 1976,
+    "arrived": "20 de julio de 1976",
+    "ended": "Noviembre de 1982",
+    "status": "inactivo",
+    "place": "Chryse Planitia",
+    "stats": [["Años trabajando", "más de 6"], ["Primeras fotos a color", "de la superficie"], ["Experimentos de vida", "3"]],
+    "story": "El 20 de julio de 1976, exactamente siete años después del primer alunizaje, Viking 1 se posó en Marte. Fue la primera nave estadounidense en funcionar con éxito sobre la superficie marciana. Envió fotos de un paisaje rojo lleno de rocas y un cielo de color caramelo. Durante más de seis años midió el clima marciano día tras día, hasta que un error en una orden enviada desde la Tierra cortó la comunicación en 1982.",
+    "science": "Viking llevaba un pequeño laboratorio para buscar vida: tomaba suelo con un brazo, lo mezclaba con nutrientes y observaba si «algo» respiraba o comía. Los resultados fueron confusos y la mayoría de los científicos concluyó que no había vida, pero sí una química del suelo muy extraña. Aquellas preguntas guiaron a todas las misiones a Marte que vinieron después.",
+    "today": "La nave sigue en Chryse Planitia, en silencio. Fue renombrada «Estación Conmemorativa Thomas Mutch», en honor al líder del equipo de imágenes.",
+    "fun": "Su gemela, Viking 2, aterrizó en otra zona y fotografió escarcha cubriendo el suelo marciano en invierno.",
+    "sources": [
+      {"title": "NASA Science: Viking 1", "url": "https://science.nasa.gov/mission/viking-1/"}
+    ]
+  },
+  {
+    "slug": "sojourner-pathfinder",
+    "name": "Sojourner y Pathfinder",
+    "mission": "Mars Pathfinder",
+    "location": "marte",
+    "kind": "rover",
+    "year": 1997,
+    "arrived": "4 de julio de 1997",
+    "ended": "27 de septiembre de 1997",
+    "status": "inactivo",
+    "place": "Ares Vallis",
+    "stats": [["Peso del rover", "10,6 kg"], ["Velocidad máxima", "1 cm/s"], ["Misión planeada", "7 días"]],
+    "story": "Pathfinder llegó a Marte de una forma muy divertida: envuelto en bolsas de aire gigantes, rebotó por el suelo como una pelota antes de detenerse. Al abrirse, dejó salir a Sojourner, un rover del tamaño de un microondas. Fue el primer vehículo con ruedas en recorrer otro planeta. Debía funcionar una semana y trabajó casi tres meses, estudiando rocas a las que el equipo puso nombres de dibujos animados.",
+    "science": "Sojourner tenía un instrumento que analizaba de qué estaban hechas las rocas. Descubrió rocas redondeadas y piedras como las que dejan los ríos, señales de que en el pasado corrió agua por esa región. La misión también probó que se podía aterrizar barato y con bolsas de aire, una idea que luego usaron Spirit y Opportunity.",
+    "today": "La nave Pathfinder, llamada «Estación Conmemorativa Carl Sagan», y el pequeño Sojourner siguen en Ares Vallis, a pocos metros uno del otro.",
+    "fun": "El nombre Sojourner lo propuso una niña de 12 años, Valerie Ambroise, en un concurso escolar. Lo eligió en honor a Sojourner Truth, luchadora por los derechos civiles.",
+    "sources": [
+      {"title": "NASA Science: Mars Pathfinder", "url": "https://science.nasa.gov/mission/mars-pathfinder/"}
+    ]
+  },
+  {
+    "slug": "spirit",
+    "name": "Spirit",
+    "mission": "Mars Exploration Rover A",
+    "location": "marte",
+    "kind": "rover",
+    "year": 2004,
+    "arrived": "4 de enero de 2004",
+    "ended": "Marzo de 2010 (último contacto)",
+    "status": "inactivo",
+    "place": "Cráter Gusev",
+    "stats": [["Misión planeada", "90 días"], ["Duró", "más de 6 años"], ["Recorrido", "7,7 km"]],
+    "story": "Spirit llegó a Marte para una misión de tres meses y se quedó trabajando más de seis años. En 2006 se le trabó una rueda, así que el equipo decidió manejarlo marcha atrás, arrastrando la rueda rota. En 2009 quedó atrapado en arena blanda, en un lugar llamado Troy. Los ingenieros intentaron liberarlo durante meses, pero el invierno marciano llegó y Spirit dejó de responder en marzo de 2010.",
+    "science": "Su rueda rota resultó ser una gran ayuda: al arrastrarla, Spirit raspó el suelo y dejó al descubierto un material blanco casi puro de sílice. En la Tierra, ese material se forma en aguas termales o en vapor volcánico, lugares donde a los microbios les encanta vivir. Así, un accidente se convirtió en uno de sus mayores descubrimientos.",
+    "today": "Spirit sigue atrapado en Troy, cubierto de polvo. Su misión se declaró terminada en mayo de 2011.",
+    "fun": "Spirit y su gemelo Opportunity se lanzaron con un mes de diferencia y aterrizaron en lados opuestos de Marte.",
+    "sources": [
+      {"title": "NASA Science: Spirit", "url": "https://science.nasa.gov/mission/mer-spirit/"}
+    ]
+  },
+  {
+    "slug": "opportunity",
+    "name": "Opportunity",
+    "mission": "Mars Exploration Rover B",
+    "location": "marte",
+    "kind": "rover",
+    "year": 2004,
+    "arrived": "25 de enero de 2004",
+    "ended": "Junio de 2018 (último contacto)",
+    "status": "inactivo",
+    "place": "Meridiani Planum",
+    "stats": [["Misión planeada", "90 días"], ["Duró", "más de 14 años"], ["Recorrido", "45 km"]],
+    "story": "Opportunity, «Oppy» para sus amigos, tuvo un aterrizaje de suerte: rebotó y terminó justo dentro de un pequeño cráter, como un hoyo en uno de golf. Debía trabajar 90 días y estuvo activo más de 14 años, recorriendo más distancia que un maratón. En junio de 2018 una tormenta de polvo cubrió todo el planeta, tapó la luz del Sol y sus paneles solares dejaron de cargar.",
+    "science": "Opportunity encontró pequeñas esferas de un mineral llamado hematita, a las que el equipo llamó «arándanos». En la Tierra, estas esferas suelen formarse con agua. Junto con otras rocas en capas, fueron la prueba de que Meridiani tuvo agua líquida en el pasado, quizás salada y ácida.",
+    "today": "Descansa en el valle Perseverancia, en el borde del cráter Endeavour. La NASA envió más de mil llamadas antes de declarar terminada la misión en febrero de 2019.",
+    "fun": "Se hizo famosa la frase «Mi batería está baja y está oscureciendo». No fue un mensaje literal: es una traducción poética que hizo un periodista de sus últimos datos.",
+    "sources": [
+      {"title": "NASA Science: Opportunity", "url": "https://science.nasa.gov/mission/mer-opportunity/"}
+    ]
+  },
+  {
+    "slug": "phoenix",
+    "name": "Phoenix",
+    "mission": "Phoenix Mars Lander",
+    "location": "marte",
+    "kind": "lander",
+    "year": 2008,
+    "arrived": "25 de mayo de 2008",
+    "ended": "2 de noviembre de 2008",
+    "status": "inactivo",
+    "place": "Vastitas Borealis, ártico marciano",
+    "stats": [["Días trabajando", "unos 160"], ["Hallazgo", "hielo de agua"], ["Libros a bordo", "un DVD entero"]],
+    "story": "Phoenix fue a un lugar que nadie había visitado: las llanuras heladas cerca del polo norte de Marte. Con su brazo robótico cavó zanjas en el suelo y encontró trocitos blancos brillantes. Días después esos trocitos habían desaparecido. ¿Qué pasó? Eran hielo de agua que se transformó en vapor al quedar expuesto al Sol. Cuando llegó el invierno marciano, Phoenix se quedó sin luz y dejó de comunicarse.",
+    "science": "Phoenix confirmó que bajo el suelo del ártico marciano hay hielo de agua. También descubrió perclorato, una sal que puede bajar la temperatura a la que el agua se congela, y observó nieve cayendo desde las nubes, aunque se evaporaba antes de tocar el suelo.",
+    "today": "Fotos tomadas años después desde la órbita mostraron que sus paneles solares se rompieron por el peso del hielo de dióxido de carbono que se acumuló encima durante el invierno.",
+    "fun": "¡Phoenix es una biblioteca en Marte! Lleva un DVD llamado «Visiones de Marte», con novelas, cuentos y arte sobre el planeta rojo, además de miles de nombres de personas, pensado para futuros exploradores.",
+    "sources": [
+      {"title": "NASA Science: Phoenix", "url": "https://science.nasa.gov/mission/phoenix/"}
+    ]
+  },
+  {
+    "slug": "insight",
+    "name": "InSight",
+    "mission": "Interior Exploration using Seismic Investigations",
+    "location": "marte",
+    "kind": "instrument",
+    "year": 2018,
+    "arrived": "26 de noviembre de 2018",
+    "ended": "21 de diciembre de 2022",
+    "status": "inactivo",
+    "place": "Elysium Planitia",
+    "stats": [["Martemotos detectados", "1.319"], ["Mayor sismo", "magnitud 4,7"], ["Años escuchando", "4"]],
+    "story": "InSight no vino a mirar el paisaje: vino a escuchar el corazón de Marte. Colocó un sismómetro tan sensible que podía sentir vibraciones más pequeñas que el ancho de un átomo. Durante cuatro años registró más de mil «martemotos». Pero el polvo marciano fue cubriendo sus paneles solares poco a poco, hasta que en diciembre de 2022 dejó de responder.",
+    "science": "Las ondas de los martemotos viajan por dentro del planeta y cambian según lo que atraviesan, igual que una ecografía. Con ellas, los científicos midieron el grosor de la corteza de Marte y descubrieron que su núcleo es líquido y más grande de lo esperado. InSight también tenía un taladro, «el topo», que no logró enterrarse porque el suelo se apelmazaba.",
+    "today": "InSight sigue en Elysium Planitia, cubierto de polvo. Sus datos se siguen usando para entender cómo se forman los planetas rocosos, incluida la Tierra.",
+    "fun": "InSight también detectó impactos de meteoritos. Después, las sondas en órbita fotografiaron los cráteres recién formados, ¡y algunos dejaron al descubierto hielo!",
+    "sources": [
+      {"title": "NASA Science: InSight", "url": "https://science.nasa.gov/mission/insight/"}
+    ]
+  },
+  {
+    "slug": "ingenuity",
+    "name": "Ingenuity",
+    "mission": "Mars 2020 (helicóptero)",
+    "location": "marte",
+    "kind": "helicopter",
+    "year": 2021,
+    "arrived": "18 de febrero de 2021",
+    "ended": "Enero de 2024 (último vuelo)",
+    "status": "parcial",
+    "place": "Valinor Hills, cráter Jezero",
+    "stats": [["Vuelos planeados", "5"], ["Vuelos logrados", "72"], ["Peso", "1,8 kg"]],
+    "story": "Ingenuity viajó a Marte escondido debajo del rover Perseverance. Era un experimento: nadie sabía si un helicóptero podría volar en un aire tan delgado. El 19 de abril de 2021 se elevó unos 3 metros durante 39 segundos y se convirtió en la primera máquina en hacer un vuelo con motor en otro planeta. Debía volar cinco veces. Voló 72. En enero de 2024 sus aspas se dañaron y ya no pudo despegar.",
+    "science": "El aire de Marte tiene apenas un 1 % de la densidad del aire terrestre. Para lograr sustentación, las aspas de Ingenuity giraban a unas 2.400 vueltas por minuto, mucho más rápido que un helicóptero común. Su éxito demostró que futuras misiones podrán usar aeronaves para explorar lugares donde un rover no puede llegar.",
+    "today": "Ya no vuela, pero no está completamente apagado: la NASA lo configuró para seguir despertando y guardar datos como una pequeña estación de pruebas, a la espera de que alguien los recupere algún día.",
+    "fun": "Ingenuity lleva un trocito de tela del Flyer de los hermanos Wright, el primer avión con motor de la Tierra. Dos primeros vuelos, conectados por más de un siglo.",
+    "sources": [
+      {"title": "NASA Science: Ingenuity", "url": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-helicopter/"}
+    ]
+  },
+  {
+    "slug": "deposito-three-forks",
+    "name": "Depósito de muestras Three Forks",
+    "mission": "Mars 2020 Perseverance",
+    "location": "marte",
+    "kind": "depot",
+    "year": 2022,
+    "arrived": "Diciembre de 2022 a enero de 2023",
+    "ended": "En espera",
+    "status": "espera",
+    "place": "Three Forks, cráter Jezero",
+    "stats": [["Tubos dejados", "10"], ["Tamaño de cada tubo", "como un marcador"], ["Contenido", "rocas, suelo y aire"]],
+    "story": "No todo lo que se deja en el espacio está abandonado: algunas cosas están guardadas. Entre diciembre de 2022 y enero de 2023, el rover Perseverance dejó caer con cuidado diez tubos metálicos sobre el suelo del cráter Jezero, en un lugar llamado Three Forks. Dentro hay pedazos de rocas, polvo marciano y hasta una muestra del aire. Es una especie de caja fuerte de respaldo para el futuro.",
+    "science": "Jezero fue hace miles de millones de años un lago con un delta de río. Las rocas de ese tipo, en la Tierra, guardan rastros de vida antigua. Analizarlas en laboratorios terrestres, con equipos imposibles de llevar a Marte, podría responder la gran pregunta: ¿hubo vida alguna vez en Marte?",
+    "today": "Los tubos siguen ordenados en el suelo, en un patrón tipo zigzag para que sea fácil encontrarlos. Cómo y cuándo traerlos a la Tierra todavía se está discutiendo.",
+    "fun": "Uno de los tubos es un «tubo testigo»: no tiene roca, sino que sirve para saber si los demás pudieron contaminarse con materiales llevados desde la Tierra.",
+    "sources": [
+      {"title": "NASA Science: Muestras de rocas de Marte", "url": "https://science.nasa.gov/mission/mars-2020-perseverance/mars-rock-samples/"}
+    ]
+  },
+  {
+    "slug": "maven",
+    "name": "MAVEN",
+    "mission": "Mars Atmosphere and Volatile EvolutioN",
+    "location": "marte",
+    "kind": "orbiter",
+    "year": 2014,
+    "arrived": "21 de septiembre de 2014",
+    "ended": "Diciembre de 2025 (último contacto)",
+    "status": "perdido",
+    "place": "Órbita marciana",
+    "stats": [["Años en órbita", "11"], ["Pregunta clave", "¿dónde fue el aire?"], ["Fin de misión", "2026"]],
+    "story": "Hace mucho tiempo, Marte tenía un aire más grueso y quizá ríos y lagos. Hoy es un desierto frío con una atmósfera muy delgada. MAVEN llegó en 2014 para resolver el misterio: ¿adónde se fue ese aire? Durante once años dio vueltas al planeta midiendo los gases que escapan al espacio. En diciembre de 2025 dejó de comunicarse y, tras meses de intentos, la NASA dio por terminada la misión en 2026.",
+    "science": "MAVEN descubrió que el viento solar, una corriente de partículas que sale del Sol, va arrancando la atmósfera de Marte poco a poco, sobre todo durante las tormentas solares. Como Marte perdió su campo magnético protector, quedó expuesto. También trabajó como antena, enviando a la Tierra mensajes de los rovers.",
+    "today": "MAVEN sigue girando alrededor de Marte, pero en silencio. Su despedida dejó a menos naves vigilando el planeta, que ya tiene una flota envejecida.",
+    "fun": "MAVEN llevó un DVD con más de mil haikus sobre Marte escritos y votados por el público de todo el mundo.",
+    "sources": [
+      {"title": "NASA Science: MAVEN", "url": "https://science.nasa.gov/mission/maven/"}
+    ]
+  },
+  {
+    "slug": "voyager-1",
+    "name": "Voyager 1",
+    "mission": "Programa Voyager",
+    "location": "espacio",
+    "kind": "probe",
+    "year": 1977,
+    "arrived": "5 de septiembre de 1977 (lanzamiento)",
+    "ended": "Sigue enviando datos",
+    "status": "parcial",
+    "place": "Espacio interestelar",
+    "stats": [["Años de viaje", "49"], ["Instrumentos encendidos", "2 de 10"], ["Distancia", "casi 1 día-luz"]],
+    "story": "Voyager 1 es el objeto hecho por humanos que más lejos ha llegado. Fue lanzado en 1977, visitó Júpiter y Saturno, y en 2012 salió de la burbuja que crea el Sol a su alrededor para entrar al espacio interestelar. Sus señales tardan casi un día completo en llegar a la Tierra. Para ahorrar energía, el equipo ha ido apagando sus instrumentos uno por uno: hoy solo quedan dos encendidos.",
+    "science": "Voyager 1 descubrió volcanes activos en Ío, una luna de Júpiter, y estudió la atmósfera de Titán, la gran luna de Saturno. Ahora mide partículas y campos magnéticos de una región que ninguna otra nave había alcanzado. Funciona con un generador nuclear que pierde unos 4 vatios de potencia cada año.",
+    "today": "Sigue vivo a casi 49 años de su lanzamiento. Cada instrumento apagado alarga un poco más su vida. Algún día, su señal dejará de llegar, pero la nave seguirá viajando entre las estrellas.",
+    "fun": "En 1990 giró su cámara y fotografió la Tierra desde 6.000 millones de km: un «pálido punto azul». Además, lleva un disco de oro con saludos en 55 idiomas, música y sonidos de nuestro planeta.",
+    "sources": [
+      {"title": "NASA Science: Voyager", "url": "https://science.nasa.gov/mission/voyager/"},
+      {"title": "NASA Science: Preguntas frecuentes de Voyager", "url": "https://science.nasa.gov/mission/voyager/frequently-asked-questions/"}
+    ]
+  },
+  {
+    "slug": "voyager-2",
+    "name": "Voyager 2",
+    "mission": "Programa Voyager",
+    "location": "espacio",
+    "kind": "probe",
+    "year": 1977,
+    "arrived": "20 de agosto de 1977 (lanzamiento)",
+    "ended": "Sigue enviando datos",
+    "status": "parcial",
+    "place": "Espacio interestelar",
+    "stats": [["Planetas visitados", "4"], ["Única visita a", "Urano y Neptuno"], ["Entró al espacio interestelar", "2018"]],
+    "story": "Voyager 2 despegó dos semanas antes que su gemela, pero por una ruta más larga. Aprovechó una alineación de planetas que ocurre cada 175 años para saltar de uno a otro como en una carrera de relevos. Pasó por Júpiter, Saturno, Urano y Neptuno. Hasta hoy, es la única nave que ha visitado Urano y Neptuno. En 2018 cruzó también la frontera del espacio interestelar.",
+    "science": "Usó la gravedad de cada planeta como una honda para ganar velocidad y cambiar de rumbo, una técnica llamada asistencia gravitatoria. Descubrió nuevas lunas y anillos alrededor de Urano y Neptuno, y fotografió una gran mancha oscura en Neptuno, una tormenta gigante.",
+    "today": "Igual que Voyager 1, sigue enviando datos con muy pocos instrumentos encendidos, porque su energía se agota lentamente. El equipo decide con cuidado qué apagar para que dure el mayor tiempo posible.",
+    "fun": "Lleva el mismo disco de oro que Voyager 1. En él hay sonidos de lluvia, del latido de un corazón y de una madre hablándole a su bebé.",
+    "sources": [
+      {"title": "NASA Science: Voyager", "url": "https://science.nasa.gov/mission/voyager/"}
+    ]
+  },
+  {
+    "slug": "pioneer-10",
+    "name": "Pioneer 10",
+    "mission": "Programa Pioneer",
+    "location": "espacio",
+    "kind": "probe",
+    "year": 1972,
+    "arrived": "2 de marzo de 1972 (lanzamiento)",
+    "ended": "23 de enero de 2003 (última señal)",
+    "status": "inactivo",
+    "place": "Rumbo a la estrella Aldebarán",
+    "stats": [["Primera en cruzar", "el cinturón de asteroides"], ["Visitó Júpiter", "1973"], ["Años enviando señales", "casi 31"]],
+    "story": "Pioneer 10 fue la exploradora que abrió el camino. Nadie sabía si una nave podría atravesar el cinturón de asteroides sin ser destruida. Pioneer 10 lo cruzó sana y salva y, en 1973, se convirtió en la primera nave en pasar junto a Júpiter. Siguió alejándose y enviando señales durante casi 31 años, hasta que en 2003 su energía ya no alcanzó para hablar con la Tierra.",
+    "science": "Midió por primera vez la intensa radiación que rodea a Júpiter, mucho más fuerte de lo esperado. Esa información fue vital para proteger a las naves que vinieron después, como las Voyager. También tomó las primeras imágenes cercanas del planeta gigante.",
+    "today": "Sigue viajando en silencio hacia la constelación de Tauro. Tardará unos dos millones de años en pasar cerca de la estrella Aldebarán.",
+    "fun": "Lleva una placa de metal con un dibujo de dos personas y un mapa que señala dónde está el Sol, por si algún día alguien la encuentra.",
+    "sources": [
+      {"title": "NASA Science: Pioneer 10", "url": "https://science.nasa.gov/mission/pioneer-10/"}
+    ]
+  },
+  {
+    "slug": "new-horizons",
+    "name": "New Horizons",
+    "mission": "New Horizons",
+    "location": "espacio",
+    "kind": "probe",
+    "year": 2006,
+    "arrived": "19 de enero de 2006 (lanzamiento)",
+    "ended": "Sigue en el cinturón de Kuiper",
+    "status": "activo",
+    "place": "Cinturón de Kuiper",
+    "stats": [["Visitó Plutón", "2015"], ["Visitó Arrokoth", "2019"], ["Velocidad de lanzamiento", "récord"]],
+    "story": "Cuando New Horizons despegó en 2006, Plutón era una mancha borrosa en los telescopios. Viajó nueve años y medio para llegar allí. El 14 de julio de 2015 pasó junto a Plutón y nos mostró un mundo increíble, con montañas de hielo y un gran «corazón» blanco. Después siguió hasta Arrokoth, una roca helada con forma de muñeco de nieve, el objeto más lejano explorado de cerca.",
+    "science": "Descubrió que Plutón tiene glaciares de nitrógeno que fluyen lentamente, montañas de hielo de agua y una atmósfera azulada. Arrokoth mostró cómo se unieron los primeros bloques que formaron los planetas, hace más de 4.500 millones de años.",
+    "today": "Sigue activa, viajando por el cinturón de Kuiper y estudiando el polvo y las partículas de esa región lejana del sistema solar.",
+    "fun": "Lleva a bordo una pequeña porción de las cenizas de Clyde Tombaugh, el astrónomo que descubrió Plutón en 1930.",
+    "sources": [
+      {"title": "NASA Science: New Horizons", "url": "https://science.nasa.gov/mission/new-horizons/"}
+    ]
+  }
+]
