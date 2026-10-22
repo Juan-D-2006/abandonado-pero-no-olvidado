@@ -232,6 +232,8 @@
     R.H = Math.floor(R.W * 1.42);
     bookEl.style.setProperty('--W', R.W + 'px');
     bookEl.style.setProperty('--H', R.H + 'px');
+    // En celular solo se ve la página activa: recortamos lo que sobresale a los lados
+    $('#stage').style.clipPath = R.single ? `inset(-200px calc(50% - ${R.W / 2 + 12}px))` : 'none';
   }
 
   function buildBook(b) {
