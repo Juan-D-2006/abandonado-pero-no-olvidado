@@ -33,13 +33,14 @@
     espacio: ['#1f2b47', '#203d3c', '#3a2f57', '#173450', '#2c2a40'],
   };
 
-  const state = { books: [], loc: 'todo', q: '', statuses: new Set(), client: null, source: 'local' };
+  const state = { books: [], loc: 'todo', q: '', statuses: new Set(), only3d: false, client: null, source: 'local' };
 
   // ---------- util ----------
   const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const icon = (name) => (window.ICONS && ICONS[name]) || ICONS.probe;
   $$('[data-icon]').forEach((el) => (el.innerHTML = icon(el.dataset.icon)));
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 
   // ---------- datos ----------
   async function loadSupabase() {
@@ -83,7 +84,7 @@
     $('#legend').innerHTML = Object.entries(STATUS)
       .filter(([k]) => counts[k])
       .map(([k, v]) => `<button type="button" class="chip" data-status="${k}" aria-pressed="false"><i class="dot s-${k}"></i>${v.label}<span class="n">${counts[k]}</span></button>`)
-      .join('');
+      .join('') + (window.SCENES ? `<button type="button" class="chip chip-3d" data-only3d aria-pressed="false"><i class="dot dot-3d"></i>Con escena 3D<span class="n">${state.books.filter((b) => SCENES[b.slug]).length}</span></button>` : '');
   }
 
   function spineHTML(b, i) {
@@ -92,7 +93,7 @@
     const height = 80 + (h % 21); // 80–100 % del estante
     const width = 54 + ((h >> 3) % 26) + Math.min(20, Math.floor(b.name.length / 2.2));
     return `<button type="button" class="spine" data-slug="${esc(b.slug)}" style="--cloth:${cloth};--h:${height}%;--w:${width}px;--i:${i}" aria-label="${esc(b.name)}, ${esc(b.mission)}. ${STATUS[b.status].label}">
-      <span class="band s-${b.status}"></span>
+      <span class="band s-${b.status}"></span>${window.SCENES && SCENES[b.slug] ? '<span class="spine-3d" aria-hidden="true">3D</span>' : ''}
       <span class="spine-title">${esc(b.name)}</span>
       <span class="spine-year">${b.year}</span>
       <span class="spine-icon">${icon(b.kind)}</span>
@@ -115,6 +116,7 @@
 
   function matches(b) {
     if (state.statuses.size && !state.statuses.has(b.status)) return false;
+    if (state.only3d && !(window.SCENES && SCENES[b.slug])) return false;
     if (!state.q) return true;
     const hay = `${b.name} ${b.mission} ${b.place} ${KIND[b.kind] || ''} ${b.story} ${b.science}`.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     return hay.includes(state.q);
@@ -129,7 +131,7 @@
       $$('.spine', sh).forEach((sp) => {
         const ok = matches(state.books.find((b) => b.slug === sp.dataset.slug));
         sp.classList.toggle('is-dim', !ok);
-        sp.classList.toggle('is-hit', ok && (state.q || state.statuses.size) ? true : false);
+        sp.classList.toggle('is-hit', ok && (state.q || state.statuses.size || state.only3d) ? true : false);
         sp.tabIndex = ok ? 0 : -1;
         if (ok) n++;
       });
@@ -154,6 +156,8 @@
     applyFilters();
   });
   $('#legend').addEventListener('click', (e) => {
+    const c3 = e.target.closest('[data-only3d]');
+    if (c3) { state.only3d = !state.only3d; c3.setAttribute('aria-pressed', String(state.only3d)); applyFilters(); return; }
     const chip = e.target.closest('[data-status]');
     if (!chip) return;
     const s = chip.dataset.status;
@@ -227,13 +231,35 @@
   function measure() {
     const vw = innerWidth, vh = innerHeight;
     R.single = vw < 760;
-    const maxH = vh - (R.single ? 150 : 170);
-    R.W = Math.floor(R.single ? Math.min(vw - 32, maxH / 1.42, 460) : Math.min(440, (vw - 160) / 2, maxH / 1.42));
-    R.H = Math.floor(R.W * 1.42);
+    R.hasScene = !!(R.book && window.SCENES && SCENES[R.book.slug]);
+    let maxH = vh - (R.single ? 150 : 170);
+    R.dio = null;
+    if (R.hasScene && R.single) {
+      const sh = Math.round(Math.min(Math.max(vh * 0.3, 170), 260));
+      maxH -= sh + 14;
+      R.W = Math.floor(Math.min(vw - 32, maxH / 1.42, 460)); R.H = Math.floor(R.W * 1.42);
+      const top = Math.max(64, (vh - 78 - (sh + 14 + R.H)) / 2);
+      R.cx = vw / 2; R.top = top + sh + 14;
+      R.dio = { left: (vw - R.W) / 2, top, w: R.W, h: sh };
+    } else if (R.hasScene) {
+      const sw = Math.round(Math.min(Math.max(vw * 0.34, 300), 560));
+      R.W = Math.floor(Math.min(440, (vw - sw - 40 - 96) / 2, maxH / 1.42)); R.H = Math.floor(R.W * 1.42);
+      const left0 = (vw - (2 * R.W + 40 + sw)) / 2;
+      R.cx = left0 + R.W; R.top = vh / 2 - R.H / 2 - 34;
+      R.dio = { left: left0 + 2 * R.W + 40, top: R.top, w: sw, h: R.H };
+    } else {
+      R.W = Math.floor(R.single ? Math.min(vw - 32, maxH / 1.42, 460) : Math.min(440, (vw - 160) / 2, maxH / 1.42));
+      R.H = Math.floor(R.W * 1.42);
+      R.cx = vw / 2; R.top = vh / 2 - R.H / 2 - (R.single ? 30 : 34);
+    }
+    bookEl.style.left = (R.cx - R.W) + 'px';
+    $('#stage').style.perspectiveOrigin = `${R.cx}px 45%`;
+    flyLayer.style.perspectiveOrigin = `${R.cx}px 45%`;
+    if (R.dio) Object.assign(DIO.el.style, { left: R.dio.left + 'px', top: R.dio.top + 'px', width: R.dio.w + 'px', height: R.dio.h + 'px' });
     bookEl.style.setProperty('--W', R.W + 'px');
     bookEl.style.setProperty('--H', R.H + 'px');
     // En celular solo se ve la página activa: recortamos lo que sobresale a los lados
-    $('#stage').style.clipPath = R.single ? `inset(-200px calc(50% - ${R.W / 2 + 12}px))` : 'none';
+    $('#stage').style.clipPath = R.single ? `inset(${R.top - 40}px calc(50% - ${R.W / 2 + 12}px) -200px)` : 'none';
   }
 
   function buildBook(b) {
@@ -306,8 +332,8 @@
 
   // Transformación del "libro volador" para que su lomo coincida con el lomo del estante
   function spineTransform(rect, T) {
-    const boxLeft = innerWidth / 2 - R.W / 2;
-    const boxTop = innerHeight / 2 - R.H / 2 - (R.single ? 30 : 34);
+    const boxLeft = R.cx - R.W / 2;
+    const boxTop = R.top;
     const s = rect.height / R.H;
     const ax = rect.width / T;
     const dx = rect.left + rect.width / 2 - boxLeft;
@@ -367,11 +393,13 @@
     await wait(reduceMotion.matches ? 0 : 140);
     turn(1); // abre la portada
     $('#next').focus({ preventScroll: true });
+    if (R.hasScene) startScene(slug);
   }
 
   async function closeBook() {
     if (!R.open || R.busy) return;
     R.busy = true;
+    stopScene();
     const spine = R.spine && R.spine.isConnected ? R.spine : $(`.spine[data-slug="${R.book.slug}"]`);
     // Cierra el libro pasando las hojas hacia atrás
     if (R.flipped > 0) {
@@ -413,6 +441,105 @@
     spine && spine.focus({ preventScroll: true });
   }
 
+  // ---------- escenas 3D ----------
+  const DIO = { el: $('#diorama'), canvas: $('#dio-canvas'), renderer: null, inst: null, raf: 0, t: 0, last: 0, phase: -1, txt: '', drag: 0, dragT: 0, idle: 0, slug: null };
+  window.__DIO = DIO;
+  function loadThree() {
+    if (window.THREE) return Promise.resolve();
+    if (!loadThree.p) loadThree.p = new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js';
+      s.onload = res; s.onerror = () => { loadThree.p = null; rej(new Error('three.js no cargó')); };
+      document.head.appendChild(s);
+    });
+    return loadThree.p;
+  }
+  function sizeScene() {
+    if (!DIO.renderer || !R.dio) return;
+    const view = $('.dio-view', DIO.el);
+    const w = view.clientWidth, h = view.clientHeight;
+    DIO.renderer.setSize(w, h, false);
+    DIO.inst.camera.aspect = w / h; DIO.inst.camera.updateProjectionMatrix();
+  }
+  async function startScene(slug) {
+    DIO.slug = slug;
+    DIO.el.hidden = false; DIO.el.classList.remove('is-error'); DIO.el.classList.add('is-loading');
+    $('#dio-year').textContent = ''; $('#dio-text').textContent = ''; $('#dio-steps').innerHTML = '';
+    // un lienzo nuevo en cada apertura (el anterior perdió su contexto WebGL al cerrarse)
+    const fresh = document.createElement('canvas'); fresh.id = 'dio-canvas'; fresh.setAttribute('aria-label', DIO.canvas.getAttribute('aria-label'));
+    DIO.canvas.replaceWith(fresh); DIO.canvas = fresh;
+    requestAnimationFrame(() => DIO.el.classList.add('is-on'));
+    try { await loadThree(); } catch (e) { console.warn(e); DIO.el.classList.remove('is-loading'); DIO.el.classList.add('is-error'); return; }
+    if (!R.open || DIO.slug !== slug) return;
+    const T = window.THREE;
+    try {
+      DIO.renderer = new T.WebGLRenderer({ canvas: DIO.canvas, antialias: true, powerPreference: 'high-performance' });
+    } catch (e) { DIO.el.classList.remove('is-loading'); DIO.el.classList.add('is-error'); return; }
+    const r = DIO.renderer;
+    r.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
+    r.outputEncoding = T.sRGBEncoding; r.toneMapping = T.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
+    DIO.inst = SCENES[slug](T);
+    DIO.t = 0; DIO.phase = -1; DIO.txt = ''; DIO.drag = DIO.dragT = 0;
+    $('#dio-steps').innerHTML = DIO.inst.phases.map(() => '<span><i></i></span>').join('');
+    sizeScene();
+    DIO.el.classList.remove('is-loading');
+    DIO.last = performance.now();
+    const loop = (now) => {
+      DIO.raf = requestAnimationFrame(loop);
+      if (document.hidden) { DIO.last = now; return; }
+      let dt = Math.min(0.05, (now - DIO.last) / 1000); DIO.last = now;
+      if (reduceMotion.matches) dt *= 0.35;
+      const inst = DIO.inst, cam = inst.camera;
+      DIO.t = (DIO.t + dt) % inst.duration;
+      if (cam.userData.base) cam.position.copy(cam.userData.base);
+      inst.update(DIO.t, dt);
+      cam.userData.base = cam.position.clone();
+      // giro con el dedo / ratón alrededor del punto que mira la cámara
+      DIO.idle += dt; if (DIO.idle > 2.5) DIO.dragT *= Math.exp(-dt * 1.5);
+      DIO.drag += (DIO.dragT - DIO.drag) * (1 - Math.exp(-dt * 6));
+      if (Math.abs(DIO.drag) > 0.001 && cam.userData.look) {
+        const L = cam.userData.look, off = cam.position.clone().sub(L).applyAxisAngle(new T.Vector3(0, 1, 0), DIO.drag);
+        cam.position.copy(L).add(off); cam.lookAt(L);
+      }
+      // texto sincronizado
+      let i = 0; inst.phases.forEach((p, k) => { if (DIO.t >= p.t) i = k; });
+      const ph = inst.phases[i];
+      const txt = typeof ph.text === 'function' ? ph.text(DIO.t) : ph.text;
+      if (i !== DIO.phase) {
+        DIO.phase = i; DIO.el.classList.remove('cap-in'); void DIO.el.offsetWidth; DIO.el.classList.add('cap-in');
+        $('#dio-year').textContent = ph.y;
+      }
+      if (txt !== DIO.txt) { DIO.txt = txt; $('#dio-text').textContent = txt; }
+      const next = inst.phases[i + 1] ? inst.phases[i + 1].t : inst.duration;
+      $$('#dio-steps span').forEach((s, k) => { s.classList.toggle('done', k < i); s.classList.toggle('on', k === i); if (k === i) s.firstChild.style.width = (100 * (DIO.t - ph.t) / (next - ph.t)).toFixed(1) + '%'; });
+      r.render(inst.scene, cam);
+    };
+    DIO.raf = requestAnimationFrame(loop);
+  }
+  function stopScene() {
+    DIO.slug = null;
+    cancelAnimationFrame(DIO.raf);
+    DIO.el.classList.remove('is-on', 'is-error');
+    const r = DIO.renderer, inst = DIO.inst;
+    DIO.renderer = DIO.inst = null;
+    setTimeout(() => {
+      if (inst) inst.scene.traverse((o) => {
+        if (o.geometry) o.geometry.dispose();
+        (Array.isArray(o.material) ? o.material : o.material ? [o.material] : []).forEach((m) => { if (m.map) m.map.dispose(); m.dispose(); });
+      });
+      if (r) { r.dispose(); r.forceContextLoss(); }
+      if (!DIO.slug) DIO.el.hidden = true;
+    }, 400);
+  }
+  (() => {
+    let px = null; const view = $('.dio-view', DIO.el);
+    view.addEventListener('pointerdown', (e) => { if (e.target.tagName !== 'CANVAS') return; px = e.clientX; e.target.setPointerCapture(e.pointerId); DIO.el.classList.add('touched'); });
+    view.addEventListener('pointermove', (e) => { if (px == null) return; DIO.dragT = clamp(DIO.dragT - (e.clientX - px) * 0.006, -1.4, 1.4); px = e.clientX; DIO.idle = 0; });
+    const up = () => { px = null; DIO.idle = 0; };
+    view.addEventListener('pointerup', up); view.addEventListener('pointercancel', up);
+  })();
+
   // Eventos del lector
   $('#next').addEventListener('click', () => turn(1));
   $('#prev').addEventListener('click', () => turn(-1));
@@ -448,8 +575,8 @@
   addEventListener('resize', () => {
     if (!R.open) return;
     measure();
-    const top = innerHeight / 2 - R.H / 2 - (R.single ? 30 : 34);
-    bookEl.parentElement.style.setProperty('--top', top + 'px');
+    bookEl.parentElement.style.setProperty('--top', R.top + 'px');
+    sizeScene();
     if (R.single && R.flipped > 0 && R.flipped < R.L && !R.side) R.side = 'left';
     layout();
   });
