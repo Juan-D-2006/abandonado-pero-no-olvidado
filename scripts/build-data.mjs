@@ -1,6 +1,8 @@
 // Genera, a partir de data/hardware.json:
 //   - supabase/seed.sql          (para cargar la base de datos)
 //   - public/js/data-local.js    (respaldo cuando Supabase no está configurado)
+// y, a partir de data/hardware.en.json:
+//   - public/js/data-en.js       (textos en inglés de los libros)
 // Uso: npm run data
 import { readFileSync, writeFileSync } from 'node:fs';
 
@@ -25,4 +27,12 @@ writeFileSync(
   new URL('../public/js/data-local.js', import.meta.url),
   `// Generado por scripts/build-data.mjs. Respaldo local si Supabase no responde.\nwindow.HARDWARE_LOCAL = ${JSON.stringify(rows)};\n`
 );
+// Textos en inglés: data/hardware.en.json → public/js/data-en.js (los libros sin traducción se muestran en español)
+const en = JSON.parse(readFileSync(new URL('../data/hardware.en.json', import.meta.url), 'utf8'));
+const missing = rows.filter((r) => !en[r.slug]).map((r) => r.slug);
+writeFileSync(
+  new URL('../public/js/data-en.js', import.meta.url),
+  `// Generado por scripts/build-data.mjs a partir de data/hardware.en.json.\nwindow.HARDWARE_EN = ${JSON.stringify(en)};\n`
+);
 console.log(`✔ ${rows.length} registros → supabase/seed.sql y public/js/data-local.js`);
+console.log(`✔ ${Object.keys(en).length} traducciones → public/js/data-en.js${missing.length ? ` (sin inglés: ${missing.join(', ')})` : ''}`);
