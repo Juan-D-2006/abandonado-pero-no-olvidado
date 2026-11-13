@@ -6,19 +6,20 @@
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   const lerp = (a, b, t) => a + (b - a) * t;
 
+  const tr = (window.I18N && I18N.tr) || ((es) => es);
   const WORLD = 95;               // radio jugable
   const UNIT_M = 10;              // 1 unidad = 10 m (solo para mostrar)
   const SITES = [
-    { id: 'eagle', name: 'Etapa de descenso del Eagle', x: 0, z: -30,
-      fact: 'Apollo 11, 1969. La parte inferior del módulo lunar sirvió de plataforma de despegue y se quedó aquí, con una placa que dice «Vinimos en paz en nombre de toda la humanidad».' },
-    { id: 'reflector', name: 'Retrorreflector láser', x: 14, z: -44,
-      fact: 'Un panel de prismas que devuelve la luz de los láseres enviados desde la Tierra. Sigue funcionando sin energía y mide la distancia a la Luna con precisión de milímetros.' },
-    { id: 'lrv', name: 'Rover Lunar (LRV)', x: -62, z: 18,
-      fact: 'Tres de estos autos eléctricos quedaron en la Luna. Sus ruedas eran de malla de acero y la sonda LRO todavía fotografía sus huellas.' },
-    { id: 'alsep', name: 'Estación científica ALSEP', x: 58, z: 34,
-      fact: 'Sismómetros y otros instrumentos alimentados con plutonio-238. Midieron lunamotos durante casi 8 años, hasta 1977.' },
+    { id: 'eagle', name: tr('Etapa de descenso del Eagle', 'Eagle descent stage'), x: 0, z: -30,
+      fact: tr('Apollo 11, 1969. La parte inferior del módulo lunar sirvió de plataforma de despegue y se quedó aquí, con una placa que dice «Vinimos en paz en nombre de toda la humanidad».', 'Apollo 11, 1969. The lower half of the lunar module served as a launch pad and stayed here, with a plaque that reads “We came in peace for all mankind”.') },
+    { id: 'reflector', name: tr('Retrorreflector láser', 'Laser retroreflector'), x: 14, z: -44,
+      fact: tr('Un panel de prismas que devuelve la luz de los láseres enviados desde la Tierra. Sigue funcionando sin energía y mide la distancia a la Luna con precisión de milímetros.', 'A panel of prisms that bounces back lasers fired from Earth. It still works without power and measures the distance to the Moon to the millimeter.') },
+    { id: 'lrv', name: tr('Rover Lunar (LRV)', 'Lunar Roving Vehicle (LRV)'), x: -62, z: 18,
+      fact: tr('Tres de estos autos eléctricos quedaron en la Luna. Sus ruedas eran de malla de acero y la sonda LRO todavía fotografía sus huellas.', 'Three of these electric cars were left on the Moon. Their wheels were made of steel mesh, and the LRO probe still photographs their tracks.') },
+    { id: 'alsep', name: tr('Estación científica ALSEP', 'ALSEP science station'), x: 58, z: 34,
+      fact: tr('Sismómetros y otros instrumentos alimentados con plutonio-238. Midieron lunamotos durante casi 8 años, hasta 1977.', 'Seismometers and other instruments powered by plutonium-238. They measured moonquakes for almost 8 years, until 1977.') },
     { id: 'surveyor', name: 'Surveyor 3', x: 8, z: 70,
-      fact: 'Aterrizó en 1967 rebotando tres veces. Dos años y medio después, los astronautas de Apollo 12 llegaron caminando y se llevaron su cámara.' },
+      fact: tr('Aterrizó en 1967 rebotando tres veces. Dos años y medio después, los astronautas de Apollo 12 llegaron caminando y se llevaron su cámara.', 'It landed in 1967, bouncing three times. Two and a half years later, the Apollo 12 astronauts walked over and took its camera home.') },
   ];
   const CRATERS = [
     [-30, -10, 11, 3.2], [35, -10, 14, 3.8], [-20, 50, 9, 2.6], [70, -50, 16, 4.5], [-70, -55, 18, 5],
@@ -277,16 +278,18 @@
     reset();
     $('#panel-start').hidden = true; $('#panel-end').hidden = true; $('#compass').hidden = false;
     G.running = true; last = performance.now();
-    toast('¡En marcha!', 'Sigue la flecha dorada hasta la primera señal. Los haces de luz marcan los sitios por visitar.', 4000);
+    toast(tr('¡En marcha!', 'Let\'s go!'), tr('Sigue la flecha dorada hasta la primera señal. Los haces de luz marcan los sitios por visitar.', 'Follow the golden arrow to the first beacon. The beams of light mark the sites still to visit.'), 4000);
   }
   function end(won) {
     G.running = false;
     $('#compass').hidden = true;
-    $('#end-k').textContent = won ? 'Expedición completa' : 'Batería agotada';
-    $('#end-t').textContent = won ? '¡Misión cumplida!' : 'El rover se detuvo';
+    $('#end-k').textContent = won ? tr('Expedición completa', 'Expedition complete') : tr('Batería agotada', 'Battery drained');
+    $('#end-t').textContent = won ? tr('¡Misión cumplida!', 'Mission accomplished!') : tr('El rover se detuvo', 'The rover has stopped');
     $('#end-p').textContent = won
-      ? `Visitaste los ${SITES.length} sitios en ${fmt(G.t)} y regresaste con ${Math.ceil(G.battery)}% de batería. Como los objetos de Apollo, tu rover se queda aquí, abandonado pero no olvidado.`
-      : `Llegaste a ${G.visited.size} de ${SITES.length} sitios. Recoge más celdas solares en el camino y planea la ruta más corta entre los faros.`;
+      ? tr(`Visitaste los ${SITES.length} sitios en ${fmt(G.t)} y regresaste con ${Math.ceil(G.battery)}% de batería. Como los objetos de Apollo, tu rover se queda aquí, abandonado pero no olvidado.`,
+           `You visited all ${SITES.length} sites in ${fmt(G.t)} and finished with ${Math.ceil(G.battery)}% battery. Like the Apollo objects, your rover stays here: abandoned but not forgotten.`)
+      : tr(`Llegaste a ${G.visited.size} de ${SITES.length} sitios. Recoge más celdas solares en el camino y planea la ruta más corta entre los faros.`,
+           `You reached ${G.visited.size} of ${SITES.length} sites. Pick up more solar cells along the way and plan the shortest route between the beacons.`);
     $('#panel-end').hidden = false;
     $('#again').focus({ preventScroll: true });
   }
@@ -325,7 +328,7 @@
       if (Math.hypot(c.position.x - G.x, c.position.z - G.z) < 2.2) {
         scene.remove(c); cells.splice(i, 1);
         G.battery = Math.min(100, G.battery + 20);
-        if (!$('#toast').classList.contains('on') || toastTimer < 2) toast('Celda solar', '+20% de batería.', 1500);
+        if (!$('#toast').classList.contains('on') || toastTimer < 2) toast(tr('Celda solar', 'Solar cell'), tr('+20% de batería.', '+20% battery.'), 1500);
       }
     }
     // sitios

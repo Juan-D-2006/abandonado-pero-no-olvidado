@@ -14,6 +14,7 @@ Cada objeto es un libro: lo eliges en el estante, sale volando, se abre y pasas 
 
 ```
 data/hardware.json        ← fuente única de los 20 libros (edita aquí)
+data/hardware.en.json     ← textos en inglés de los libros
 scripts/build-data.mjs    ← genera supabase/seed.sql y public/js/data-local.js
 scripts/build-config.mjs  ← Render lo ejecuta: crea public/js/config.js con tus claves
 supabase/schema.sql       ← tablas, tipos y políticas RLS
@@ -32,6 +33,13 @@ Desde la cabecera del sitio, el botón **Sala de juegos** abre `public/juegos/`:
 - **Expedición lunar 3D** (`expedicion-3d.html`): conduce un rover con Three.js por la Luna y visita cinco objetos de Apollo y Surveyor antes de agotar la batería. Teclado (W A S D / flechas, espacio) o botones táctiles.
 
 Los juegos son HTML, CSS y JavaScript puro; no necesitan Supabase.
+
+## Idiomas (español / inglés)
+
+Todas las páginas tienen un selector **ES | EN**. La elección se recuerda en el navegador y también se puede forzar con `?lang=en` o `?lang=es` en la URL.
+
+- `public/js/i18n.js` aplica el idioma: en el HTML cada texto lleva su versión en inglés en atributos `data-en`, `data-en-html`, `data-en-placeholder`, etc.; en JavaScript se usa `I18N.tr('español', 'English')`.
+- Los textos en inglés de los libros están en `data/hardware.en.json` (por `slug`). `npm run data` genera `public/js/data-en.js`. Un libro sin traducción se muestra en español.
 
 ## 1 · Supabase
 

@@ -4,7 +4,8 @@
   const ROUND = 10;
 
   // [lugar, pregunta, respuesta correcta, [incorrectas], explicación]
-  const BANK = [
+  const tr = (window.I18N && I18N.tr) || ((es) => es);
+  const BANK_ES = [
     ['Luna', '¿Cuántos Rovers Lunares (LRV) quedaron estacionados en la Luna?', '3', ['1', '6', 'Ninguno: volvieron a la Tierra'],
       'Apollo 15, 16 y 17 llevaron un rover cada una. No había espacio para traerlos, así que los tres siguen allí.'],
     ['Luna', '¿De qué estaban hechas las ruedas del Rover Lunar?', 'Malla de acero con placas de titanio', ['Goma inflable', 'Madera reforzada', 'Plástico flexible'],
@@ -52,6 +53,56 @@
     ['Espacio profundo', '¿Cuántos de sus 10 instrumentos mantiene encendidos Voyager 1?', '2', ['10', '5', 'Ninguno'],
       'Su energía se agota poco a poco, así que el equipo apaga instrumentos para que la nave dure más.'],
   ];
+
+  const BANK_EN = [
+    ['Moon', 'How many Lunar Roving Vehicles (LRV) were left parked on the Moon?', '3', ['1', '6', 'None: they came back to Earth'],
+      'Apollo 15, 16 and 17 each carried one rover. There was no room to bring them back, so all three are still there.'],
+    ['Moon', 'What were the Lunar Rover\'s wheels made of?', 'Steel mesh with titanium plates', ['Inflatable rubber', 'Reinforced wood', 'Flexible plastic'],
+      'Rubber would have been damaged by the extreme cold and heat, so a steel wire mesh was used.'],
+    ['Moon', 'Which Apollo experiment still works today without needing any power?', 'The laser retroreflectors', ['The ALSEP seismometers', 'The Lunar Rover', 'The Surveyor 3 camera'],
+      'They are prisms that bounce back a laser fired from Earth. That is how the distance to the Moon is measured to the millimeter.'],
+    ['Moon', 'Where did Apollo 11\'s Eagle land?', 'Sea of Tranquility', ['Ocean of Storms', 'Cabeus Crater', 'Taurus-Littrow'],
+      'On July 20, 1969. Its descent stage is still there with a plaque that reads “We came in peace for all mankind”.'],
+    ['Moon', 'What power source did the ALSEP science stations use?', 'Plutonium-238', ['Solar panels', 'Rechargeable batteries', 'Lunar wind'],
+      'A plutonium-238 generator let them measure moonquakes for almost 8 years, until 1977.'],
+    ['Moon', 'What did LCROSS do in 2009?', 'It crashed into a crater to look for water', ['It landed softly at the north pole', 'It brought rocks back to Earth', 'It photographed the far side'],
+      'It crashed into Cabeus Crater on purpose. The dust cloud it kicked up confirmed there was frozen water.'],
+    ['Moon', 'Which spacecraft was visited by Apollo 12 astronauts two and a half years after it landed?', 'Surveyor 3', ['Viking 1', 'LRO', 'Pioneer 10'],
+      'The astronauts removed parts such as its camera, which is now at the National Air and Space Museum.'],
+    ['Moon', 'Which probe has photographed all six Apollo landing sites from orbit?', 'Lunar Reconnaissance Orbiter (LRO)', ['MAVEN', 'Voyager 2', 'Phoenix'],
+      'LRO has spent more than 17 years in lunar orbit. Its photos still show the astronauts\' footprints and the rover\'s tracks.'],
+    ['Mars', 'How many days were the Spirit and Opportunity missions meant to last?', '90 days', ['7 days', '1 year', '10 years'],
+      'Spirit worked for more than 6 years and Opportunity for more than 14. They far exceeded the plan!'],
+    ['Mars', 'How many flights did Ingenuity make on Mars?', '72', ['5', '12', '200'],
+      'It was planned for 5 test flights. It was the first helicopter to fly on another planet.'],
+    ['Mars', 'What does Ingenuity carry on board as a tribute?', 'A tiny piece of fabric from the Wright brothers\' airplane', ['A photo of the Moon', 'A golden record', 'Seeds from Earth'],
+      'Two first flights, one on Earth and one on Mars, connected across more than a century.'],
+    ['Mars', 'Who suggested the name “Sojourner”?', 'A 12-year-old girl in a school contest', ['The head of NASA', 'An Apollo astronaut', 'A computer program'],
+      'Valerie Ambroise chose it in honor of Sojourner Truth, a civil rights champion.'],
+    ['Mars', 'What did Phoenix find in the Martian arctic?', 'Water ice', ['Fossils', 'A liquid lake', 'Gold'],
+      'When it scraped the ground, ice appeared and later evaporated. It also carries a DVD with novels and art about Mars.'],
+    ['Mars', 'What did InSight measure on Mars?', 'Marsquakes (earthquakes on Mars)', ['The temperature of the Sun', 'The speed of the rovers', 'Radio signals from Earth'],
+      'It detected 1,319 marsquakes, the largest of magnitude 4.7, to understand what the planet\'s interior is like.'],
+    ['Mars', 'How many sample tubes did Perseverance leave at the Three Forks depot?', '10', ['2', '43', '100'],
+      'They are laid out in a zigzag in Jezero Crater, waiting for a future mission to bring them to Earth.'],
+    ['Mars', 'What question was MAVEN trying to answer?', 'Where did the air of Mars go?', ['Is there life on Mars?', 'How much does Mars weigh?', 'Why is Mars red?'],
+      'It studied the upper atmosphere for 11 years and showed how the solar wind stripped away much of the planet\'s air.'],
+    ['Mars', 'Which spacecraft took the first color photos from the surface of Mars?', 'Viking 1', ['Sojourner', 'Spirit', 'Mars Pathfinder'],
+      'It landed in Chryse Planitia in 1976 and worked for more than 6 years.'],
+    ['Deep space', 'What do the Voyager probes carry on board?', 'A golden record with sounds and greetings from Earth', ['A giant flag', 'A spare telescope', 'Lunar soil samples'],
+      'It has greetings in 55 languages, music and sounds such as rain or a heartbeat.'],
+    ['Deep space', 'What is the only spacecraft that has visited Uranus and Neptune?', 'Voyager 2', ['Voyager 1', 'Pioneer 10', 'New Horizons'],
+      'Voyager 2 visited four planets and entered interstellar space in 2018.'],
+    ['Deep space', 'What is the famous photo of Earth taken by Voyager 1 in 1990 called?', 'The Pale Blue Dot', ['The Blue Marble', 'Earthrise', 'The Eye of the Universe'],
+      'From 6 billion km away, Earth looks like a tiny dot in a ray of light.'],
+    ['Deep space', 'What was the first thing Pioneer 10 achieved?', 'Crossing the asteroid belt', ['Landing on Jupiter', 'Reaching Pluto', 'Going around the Sun'],
+      'It visited Jupiter in 1973 and kept heading toward the star Aldebaran, which it will take about two million years to approach.'],
+    ['Deep space', 'Which dwarf planet did New Horizons visit in 2015?', 'Pluto', ['Ceres', 'Eris', 'Makemake'],
+      'It then went on to Arrokoth in 2019. It carries ashes of Clyde Tombaugh, who discovered Pluto.'],
+    ['Deep space', 'How many of its 10 instruments does Voyager 1 still keep switched on?', '2', ['10', '5', 'None'],
+      'Its power is slowly running out, so the team switches instruments off to make the spacecraft last longer.'],
+  ];
+  const BANK = (window.I18N && I18N.lang === 'en') ? BANK_EN : BANK_ES;
 
   const $ = (s) => document.querySelector(s);
   const card = $('#card');
@@ -102,8 +153,8 @@
     hud();
     const last = i === ROUND - 1;
     $('#after').innerHTML = `
-      <p class="q-feedback"><b>${ok ? '¡Correcto!' : `La respuesta era: ${esc(q.right)}.`}</b> ${esc(q.why)}</p>
-      <div class="q-next"><button type="button" class="btn" id="next">${last ? 'Ver resultado' : 'Siguiente pregunta'}</button></div>`;
+      <p class="q-feedback"><b>${ok ? tr('¡Correcto!', 'Correct!') : tr(`La respuesta era: ${esc(q.right)}.`, `The answer was: ${esc(q.right)}.`)}</b> ${esc(q.why)}</p>
+      <div class="q-next"><button type="button" class="btn" id="next">${last ? tr('Ver resultado', 'See result') : tr('Siguiente pregunta', 'Next question')}</button></div>`;
     const nb = $('#next');
     nb.addEventListener('click', next);
     nb.focus({ preventScroll: true });
@@ -116,19 +167,19 @@
 
   function result() {
     hud();
-    const msg = score === ROUND ? '¡Perfecto! Eres el bibliotecario jefe del sistema solar.'
-      : score >= 8 ? 'Excelente. Conoces muy bien los estantes de la biblioteca.'
-      : score >= 5 ? 'Buen viaje. Vuelve a leer algunos libros y lo harás aún mejor.'
-      : 'Toda exploración empieza así. Abre los libros de la biblioteca y vuelve a intentarlo.';
+    const msg = score === ROUND ? tr('¡Perfecto! Eres el bibliotecario jefe del sistema solar.', 'Perfect! You are the head librarian of the solar system.')
+      : score >= 8 ? tr('Excelente. Conoces muy bien los estantes de la biblioteca.', 'Excellent. You know the library shelves very well.')
+      : score >= 5 ? tr('Buen viaje. Vuelve a leer algunos libros y lo harás aún mejor.', 'Good trip. Reread a few books and you will do even better.')
+      : tr('Toda exploración empieza así. Abre los libros de la biblioteca y vuelve a intentarlo.', 'Every exploration starts like this. Open the library books and try again.');
     card.innerHTML = `
       <div class="q-result">
         <div class="q-progress"><span style="width:100%"></span></div>
-        <p class="q-meta">Resultado</p>
+        <p class="q-meta">${tr('Resultado', 'Result')}</p>
         <p class="big">${score}/${ROUND}</p>
-        <p>${msg} Tu mejor racha fue de ${best} ${best === 1 ? 'acierto' : 'aciertos'} seguidos.</p>
+        <p>${msg} ${tr(`Tu mejor racha fue de ${best} ${best === 1 ? 'acierto' : 'aciertos'} seguidos.`, `Your best streak was ${best} correct ${best === 1 ? 'answer' : 'answers'} in a row.`)}</p>
         <div class="ws-actions">
-          <button type="button" class="btn" id="again">Jugar otra vez</button>
-          <a class="btn btn-ghost" style="color:var(--ink);border-color:rgba(43,34,25,.25)" href="../">Ir a la biblioteca</a>
+          <button type="button" class="btn" id="again">${tr('Jugar otra vez', 'Play again')}</button>
+          <a class="btn btn-ghost" style="color:var(--ink);border-color:rgba(43,34,25,.25)" href="../">${tr('Ir a la biblioteca', 'Go to the library')}</a>
         </div>
         <ul class="review">${log.map((l) => `<li class="${l.ok ? 'ok' : 'no'}">${esc(l.q)} <b>${esc(l.right)}</b></li>`).join('')}</ul>
       </div>`;

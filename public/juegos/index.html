@@ -3,19 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sala de juegos</title>
-  <meta name="description" content="Juegos de la biblioteca Abandonado pero no olvidado: sopa de letras, quiz y una expedición lunar en 3D.">
+  <title data-en="Game room">Sala de juegos</title>
+  <meta name="description" content="Juegos de la biblioteca Abandonado pero no olvidado: sopa de letras, quiz y una expedición lunar en 3D." data-en-content="Games from the Abandoned but not forgotten library: word search, quiz and a 3D lunar expedition.">
   <meta name="theme-color" content="#0f1219">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="juegos.css">
+  <script src="../js/i18n.js"></script>
 </head>
 <body>
   <div class="wrap">
-    <a class="back" href="../">Volver a la biblioteca</a>
-    <h1 class="title">Sala de <em>juegos</em></h1>
-    <p class="lede">Después de leer los libros del estante, pon a prueba lo que aprendiste. Tres juegos sobre las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo.</p>
+    <div class="top-row"><a class="back" href="../" data-en="Back to the library">Volver a la biblioteca</a><span data-lang-switch></span></div>
+    <h1 class="title" data-en-html="Game <em>room</em>">Sala de <em>juegos</em></h1>
+    <p class="lede" data-en="After reading the books on the shelf, put what you learned to the test. Three games about the machines NASA left on the Moon, on Mars and in deep space.">Después de leer los libros del estante, pon a prueba lo que aprendiste. Tres juegos sobre las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo.</p>
 
     <div class="games">
       <a class="game-card" href="sopa-de-letras.html">
@@ -29,10 +30,10 @@
             <rect x="48" y="44" width="174" height="26" rx="13" fill="none" stroke="#d9b25c" stroke-width="2.5"/>
           </svg>
         </div>
-        <span class="kicker">Palabras</span>
-        <h2>Sopa de letras espacial</h2>
-        <p>Busca los nombres de rovers, sondas y módulos escondidos entre las letras. Cada palabra trae un dato curioso.</p>
-        <span class="go">Jugar</span>
+        <span class="kicker" data-en="Words">Palabras</span>
+        <h2 data-en="Space word search">Sopa de letras espacial</h2>
+        <p data-en="Look for the names of rovers, probes and landers hidden among the letters. Every word comes with a fun fact.">Busca los nombres de rovers, sondas y módulos escondidos entre las letras. Cada palabra trae un dato curioso.</p>
+        <span class="go" data-en="Play">Jugar</span>
       </a>
 
       <a class="game-card" href="quiz.html">
@@ -45,10 +46,10 @@
             <path d="M200 50 l6 6 l10 -12" stroke="#f1e6cc" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span class="kicker">Preguntas</span>
-        <h2>Quiz de la biblioteca</h2>
-        <p>Diez preguntas al azar sobre la Luna, Marte y el espacio profundo, con la explicación de cada respuesta.</p>
-        <span class="go">Jugar</span>
+        <span class="kicker" data-en="Questions">Preguntas</span>
+        <h2 data-en="Library quiz">Quiz de la biblioteca</h2>
+        <p data-en="Ten random questions about the Moon, Mars and deep space, with an explanation for every answer.">Diez preguntas al azar sobre la Luna, Marte y el espacio profundo, con la explicación de cada respuesta.</p>
+        <span class="go" data-en="Play">Jugar</span>
       </a>
 
       <a class="game-card" href="expedicion-3d.html">
@@ -66,10 +67,10 @@
             <rect x="34" y="10" width="6" height="64" fill="#f0d28a" opacity=".35"/>
           </svg>
         </div>
-        <span class="kicker">Juego 3D</span>
-        <h2>Expedición lunar</h2>
-        <p>Conduce un rover por la superficie de la Luna y visita cinco objetos de las misiones Apollo y Surveyor antes de quedarte sin batería.</p>
-        <span class="go">Jugar</span>
+        <span class="kicker" data-en="3D game">Juego 3D</span>
+        <h2 data-en="Lunar expedition">Expedición lunar</h2>
+        <p data-en="Drive a rover across the surface of the Moon and visit five objects from the Apollo and Surveyor missions before your battery runs out.">Conduce un rover por la superficie de la Luna y visita cinco objetos de las misiones Apollo y Surveyor antes de quedarte sin batería.</p>
+        <span class="go" data-en="Play">Jugar</span>
       </a>
     </div>
   </div>
