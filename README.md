@@ -13,11 +13,11 @@ Cada objeto es un libro: lo eliges en el estante, sale volando, se abre y pasas 
 ## Estructura
 
 ```
-data/hardware.json        ← fuente única de los 20 libros (edita aquí)
+data/hardware.json        ← fuente única de los 22 libros (edita aquí)
 scripts/build-data.mjs    ← genera supabase/seed.sql y public/js/data-local.js
 scripts/build-config.mjs  ← Render lo ejecuta: crea public/js/config.js con tus claves
 supabase/schema.sql       ← tablas, tipos y políticas RLS
-supabase/seed.sql         ← INSERT de los 20 libros
+supabase/seed.sql         ← INSERT de los 22 libros
 public/                   ← el sitio (index.html, css/, js/)
 public/juegos/            ← sala de juegos: sopa de letras, quiz y expedición lunar 3D
 render.yaml               ← blueprint de Render
@@ -37,7 +37,7 @@ Los juegos son HTML, CSS y JavaScript puro; no necesitan Supabase.
 
 1. Crea un proyecto en <https://supabase.com> (plan gratuito).
 2. Ve a **SQL Editor → New query**, pega `supabase/schema.sql` y pulsa **Run**.
-3. Nueva query: pega `supabase/seed.sql` y **Run**. En **Table Editor → hardware** verás los 20 libros.
+3. Nueva query: pega `supabase/seed.sql` y **Run**. En **Table Editor → hardware** verás los 22 libros.
 4. En **Project Settings → API** copia la **Project URL** y la **anon public key**.
 
 > La *anon key* es pública por diseño. La seguridad la dan las políticas RLS de `schema.sql`:
