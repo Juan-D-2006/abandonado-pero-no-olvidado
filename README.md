@@ -19,8 +19,19 @@ scripts/build-config.mjs  ← Render lo ejecuta: crea public/js/config.js con tu
 supabase/schema.sql       ← tablas, tipos y políticas RLS
 supabase/seed.sql         ← INSERT de los 20 libros
 public/                   ← el sitio (index.html, css/, js/)
+public/juegos/            ← sala de juegos: sopa de letras, quiz y expedición lunar 3D
 render.yaml               ← blueprint de Render
 ```
+
+## Sala de juegos
+
+Desde la cabecera del sitio, el botón **Sala de juegos** abre `public/juegos/`:
+
+- **Sopa de letras espacial** (`sopa-de-letras.html`): 10 nombres al azar de la biblioteca escondidos en 8 direcciones; arrastra sobre las letras (ratón o táctil). Cada palabra encontrada muestra un dato.
+- **Quiz de la biblioteca** (`quiz.html`): 10 preguntas al azar de un banco de 23, con explicación tras cada respuesta, racha y repaso final. Teclas 1–4.
+- **Expedición lunar 3D** (`expedicion-3d.html`): conduce un rover con Three.js por la Luna y visita cinco objetos de Apollo y Surveyor antes de agotar la batería. Teclado (W A S D / flechas, espacio) o botones táctiles.
+
+Los juegos son HTML, CSS y JavaScript puro; no necesitan Supabase.
 
 ## 1 · Supabase
 

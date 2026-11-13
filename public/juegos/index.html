@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sala de juegos</title>
+  <meta name="description" content="Juegos de la biblioteca Abandonado pero no olvidado: sopa de letras, quiz y una expedición lunar en 3D.">
+  <meta name="theme-color" content="#0f1219">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="juegos.css">
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../">Volver a la biblioteca</a>
+    <h1 class="title">Sala de <em>juegos</em></h1>
+    <p class="lede">Después de leer los libros del estante, pon a prueba lo que aprendiste. Tres juegos sobre las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo.</p>
+
+    <div class="games">
+      <a class="game-card" href="sopa-de-letras.html">
+        <div class="game-art" aria-hidden="true">
+          <svg viewBox="0 0 260 110">
+            <g font-family="Fraunces, Georgia, serif" font-size="17" font-weight="600" fill="#c9bfae" text-anchor="middle">
+              <text x="30" y="32">V</text><text x="60" y="32">K</text><text x="90" y="32">M</text><text x="120" y="32">A</text><text x="150" y="32">R</text><text x="180" y="32">T</text><text x="210" y="32">E</text><text x="240" y="32">L</text>
+              <text x="30" y="62">O</text><text x="60" y="62">S</text><text x="90" y="62">P</text><text x="120" y="62">I</text><text x="150" y="62">R</text><text x="180" y="62">I</text><text x="210" y="62">T</text><text x="240" y="62">U</text>
+              <text x="30" y="92">Y</text><text x="60" y="92">B</text><text x="90" y="92">E</text><text x="120" y="92">A</text><text x="150" y="92">G</text><text x="180" y="92">L</text><text x="210" y="92">E</text><text x="240" y="92">N</text>
+            </g>
+            <rect x="48" y="44" width="174" height="26" rx="13" fill="none" stroke="#d9b25c" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="kicker">Palabras</span>
+        <h2>Sopa de letras espacial</h2>
+        <p>Busca los nombres de rovers, sondas y módulos escondidos entre las letras. Cada palabra trae un dato curioso.</p>
+        <span class="go">Jugar</span>
+      </a>
+
+      <a class="game-card" href="quiz.html">
+        <div class="game-art" aria-hidden="true">
+          <svg viewBox="0 0 260 110">
+            <rect x="40" y="18" width="180" height="20" rx="10" fill="#2c3240"/>
+            <rect x="40" y="46" width="180" height="20" rx="10" fill="#2c7656" opacity=".85"/>
+            <rect x="40" y="74" width="180" height="20" rx="10" fill="#2c3240"/>
+            <circle cx="52" cy="28" r="6" fill="#9c9384"/><circle cx="52" cy="56" r="6" fill="#f1e6cc"/><circle cx="52" cy="84" r="6" fill="#9c9384"/>
+            <path d="M200 50 l6 6 l10 -12" stroke="#f1e6cc" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="kicker">Preguntas</span>
+        <h2>Quiz de la biblioteca</h2>
+        <p>Diez preguntas al azar sobre la Luna, Marte y el espacio profundo, con la explicación de cada respuesta.</p>
+        <span class="go">Jugar</span>
+      </a>
+
+      <a class="game-card" href="expedicion-3d.html">
+        <div class="game-art" aria-hidden="true">
+          <svg viewBox="0 0 260 110">
+            <circle cx="210" cy="26" r="12" fill="#2a5fae"/><path d="M203 22 q6 -6 10 2 q-4 6 -10 -2" fill="#4f8a4a"/>
+            <path d="M0 80 Q40 66 80 76 T160 72 T260 78 V110 H0 Z" fill="#6f6a62"/>
+            <ellipse cx="190" cy="92" rx="30" ry="6" fill="#55514b"/>
+            <g transform="translate(90 58)">
+              <rect x="0" y="6" width="44" height="12" rx="2" fill="#e9e4d8"/>
+              <rect x="-2" y="2" width="48" height="4" fill="#1d3d78"/>
+              <rect x="30" y="-10" width="2" height="12" fill="#bfc3c7"/><rect x="26" y="-13" width="10" height="5" fill="#e9e4d8"/>
+              <circle cx="7" cy="20" r="5" fill="#2a2d33"/><circle cx="22" cy="20" r="5" fill="#2a2d33"/><circle cx="37" cy="20" r="5" fill="#2a2d33"/>
+            </g>
+            <rect x="34" y="10" width="6" height="64" fill="#f0d28a" opacity=".35"/>
+          </svg>
+        </div>
+        <span class="kicker">Juego 3D</span>
+        <h2>Expedición lunar</h2>
+        <p>Conduce un rover por la superficie de la Luna y visita cinco objetos de las misiones Apollo y Surveyor antes de quedarte sin batería.</p>
+        <span class="go">Jugar</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
