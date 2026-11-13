@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz de la biblioteca</title>
+  <meta name="description" content="Diez preguntas sobre las máquinas que la NASA dejó en la Luna, Marte y el espacio profundo.">
+  <meta name="theme-color" content="#0f1219">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="juegos.css">
+</head>
+<body>
+  <div class="wrap quiz">
+    <a class="back" href="./">Sala de juegos</a>
+    <h1 class="title">Quiz de la <em>biblioteca</em></h1>
+    <p class="lede">Diez preguntas al azar sobre los libros del estante. Responde con un clic o con las teclas 1 a 4. Después de cada respuesta te contamos el dato completo.</p>
+
+    <div class="hud">
+      <span class="stat">Pregunta <b id="num">1/10</b></span>
+      <span class="stat">Aciertos <b id="score">0</b></span>
+      <span class="stat">Racha <b id="streak">0</b></span>
+    </div>
+
+    <section class="paper q-card" id="card" aria-live="polite"></section>
+  </div>
+  <script src="quiz.js"></script>
+</body>
+</html>
