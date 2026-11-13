@@ -11,21 +11,25 @@
   const esc = (s = '') => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
+  const tr = (window.I18N && I18N.tr) || ((es) => es);
+  const EN = !!(window.I18N && I18N.lang === 'en');
 
   const LOCATIONS = {
-    luna: { title: 'La Luna', note: 'A 384.000 km de casa' },
-    marte: { title: 'Marte', note: 'Entre 55 y 400 millones de km' },
-    espacio: { title: 'Espacio profundo', note: 'Más allá de los planetas' },
+    luna: { title: tr('La Luna', 'The Moon'), note: tr('A 384.000 km de casa', '384,000 km from home') },
+    marte: { title: tr('Marte', 'Mars'), note: tr('Entre 55 y 400 millones de km', 'Between 55 and 400 million km away') },
+    espacio: { title: tr('Espacio profundo', 'Deep space'), note: tr('Más allá de los planetas', 'Beyond the planets') },
   };
   const STATUS = {
-    activo: { label: 'Sigue funcionando', text: 'Esta máquina todavía trabaja y envía datos o presta servicio.' },
-    parcial: { label: 'Funciona a medias', text: 'Sigue viva, pero con menos energía o menos instrumentos que al inicio.' },
-    espera: { label: 'Esperando regreso', text: 'Fue dejada a propósito, guardada para una misión futura.' },
-    inactivo: { label: 'En reposo', text: 'Terminó su trabajo y descansa donde la dejaron.' },
-    perdido: { label: 'Señal perdida', text: 'Dejó de responder y la NASA dio por terminada su misión.' },
-    impacto: { label: 'Impacto planeado', text: 'Terminó su misión chocando a propósito para obtener datos.' },
+    activo: { label: tr('Sigue funcionando', 'Still working'), text: tr('Esta máquina todavía trabaja y envía datos o presta servicio.', 'This machine is still at work, sending data or providing a service.') },
+    parcial: { label: tr('Funciona a medias', 'Partly working'), text: tr('Sigue viva, pero con menos energía o menos instrumentos que al inicio.', 'Still alive, but with less power or fewer instruments than at the start.') },
+    espera: { label: tr('Esperando regreso', 'Awaiting return'), text: tr('Fue dejada a propósito, guardada para una misión futura.', 'Left on purpose, stored for a future mission.') },
+    inactivo: { label: tr('En reposo', 'At rest'), text: tr('Terminó su trabajo y descansa donde la dejaron.', 'Its work is done and it rests where it was left.') },
+    perdido: { label: tr('Señal perdida', 'Signal lost'), text: tr('Dejó de responder y la NASA dio por terminada su misión.', 'It stopped responding and NASA declared its mission over.') },
+    impacto: { label: tr('Impacto planeado', 'Planned impact'), text: tr('Terminó su misión chocando a propósito para obtener datos.', 'It ended its mission by crashing on purpose to gather data.') },
   };
-  const KIND = { rover: 'Rover', lander: 'Módulo de aterrizaje', orbiter: 'Orbitador', probe: 'Sonda', reflector: 'Experimento pasivo', instrument: 'Estación científica', impactor: 'Impactador', helicopter: 'Helicóptero', depot: 'Depósito de muestras' };
+  const KIND = EN
+    ? { rover: 'Rover', lander: 'Lander', orbiter: 'Orbiter', probe: 'Probe', reflector: 'Passive experiment', instrument: 'Science station', impactor: 'Impactor', helicopter: 'Helicopter', depot: 'Sample depot' }
+    : { rover: 'Rover', lander: 'Módulo de aterrizaje', orbiter: 'Orbitador', probe: 'Sonda', reflector: 'Experimento pasivo', instrument: 'Estación científica', impactor: 'Impactador', helicopter: 'Helicóptero', depot: 'Depósito de muestras' };
   // Telas de encuadernación por estante
   const CLOTH = {
     luna: ['#3f4b5e', '#56617a', '#2f3a4c', '#4a5a6a', '#6a6f80'],
@@ -70,11 +74,22 @@
       state.source = 'fallback';
     }
     state.books = (books && books.length ? books : window.HARDWARE_LOCAL || []).slice().sort((a, b) => a.year - b.year);
-    $('#source-label').textContent = state.source === 'supabase' ? 'Supabase (en vivo)' : state.source === 'fallback' ? 'copia local (Supabase no respondió)' : 'copia local (modo demostración)';
+    if (EN) state.books = state.books.map(english);
+    $('#source-label').textContent = state.source === 'supabase' ? tr('Supabase (en vivo)', 'Supabase (live)') : state.source === 'fallback' ? tr('copia local (Supabase no respondió)', 'local copy (Supabase did not respond)') : tr('copia local (modo demostración)', 'local copy (demo mode)');
     renderLegend();
     renderShelves();
     applyFilters();
     openFromHash();
+  }
+
+  // Textos en inglés de cada libro (public/js/data-en.js). Si falta alguno, se queda en español.
+  function english(b) {
+    const t = (window.HARDWARE_EN || {})[b.slug];
+    if (!t) return b;
+    const out = Object.assign({}, b, t);
+    if (t.sourceTitles) out.sources = (b.sources || []).map((s, i) => Object.assign({}, s, { title: t.sourceTitles[i] || s.title }));
+    delete out.sourceTitles;
+    return out;
   }
 
   // ---------- estantes ----------
@@ -84,7 +99,7 @@
     $('#legend').innerHTML = Object.entries(STATUS)
       .filter(([k]) => counts[k])
       .map(([k, v]) => `<button type="button" class="chip" data-status="${k}" aria-pressed="false"><i class="dot s-${k}"></i>${v.label}<span class="n">${counts[k]}</span></button>`)
-      .join('') + (window.SCENES ? `<button type="button" class="chip chip-3d" data-only3d aria-pressed="false"><i class="dot dot-3d"></i>Con escena 3D<span class="n">${state.books.filter((b) => SCENES[b.slug]).length}</span></button>` : '');
+      .join('') + (window.SCENES ? `<button type="button" class="chip chip-3d" data-only3d aria-pressed="false"><i class="dot dot-3d"></i>${tr('Con escena 3D', 'With 3D scene')}<span class="n">${state.books.filter((b) => SCENES[b.slug]).length}</span></button>` : '');
   }
 
   function spineHTML(b, i) {
@@ -107,9 +122,9 @@
       <section class="shelf" data-location="${loc}" aria-labelledby="sh-${loc}">
         <div class="plaque">
           <h2 id="sh-${loc}">${LOCATIONS[loc].title}</h2>
-          <p><span class="count">${list.length}</span> volúmenes · ${LOCATIONS[loc].note}</p>
+          <p><span class="count">${list.length}</span> ${tr('volúmenes', 'volumes')} · ${LOCATIONS[loc].note}</p>
         </div>
-        <div class="shelf-row">${list.map((b) => spineHTML(b, i++)).join('')}<span class="bookend" aria-hidden="true"></span><a class="ghost" href="#sugerir" data-suggest="${loc}"><span>Propón un libro</span></a></div>
+        <div class="shelf-row">${list.map((b) => spineHTML(b, i++)).join('')}<span class="bookend" aria-hidden="true"></span><a class="ghost" href="#sugerir" data-suggest="${loc}"><span>${tr('Propón un libro', 'Suggest a book')}</span></a></div>
         <div class="board" aria-hidden="true"></div>
       </section>`).join('');
   }
@@ -140,7 +155,9 @@
     });
     const empty = $('#empty');
     empty.hidden = shown > 0;
-    if (!shown) empty.textContent = state.q ? `Ningún libro coincide con «${$('#q').value.trim()}». Prueba con otra palabra o quita los filtros.` : 'No hay libros con esos filtros. Quita alguno para ver más.';
+    if (!shown) empty.textContent = state.q
+      ? tr(`Ningún libro coincide con «${$('#q').value.trim()}». Prueba con otra palabra o quita los filtros.`, `No book matches “${$('#q').value.trim()}”. Try another word or clear the filters.`)
+      : tr('No hay libros con esos filtros. Quita alguno para ver más.', 'No books match those filters. Remove one to see more.');
   }
 
   // Controles
@@ -190,37 +207,39 @@
       </div>`,
       // 1 · ficha
       `<div class="page">
-        <h3 class="p-h">Ficha del objeto</h3>
+        <h3 class="p-h">${tr('Ficha del objeto', 'Object file')}</h3>
         <dl class="facts">
-          <div><dt>Tipo</dt><dd>${esc(KIND[b.kind] || b.kind)}</dd></div>
-          <div><dt>Misión</dt><dd>${esc(b.mission)}</dd></div>
-          <div><dt>Lugar</dt><dd>${esc(b.place)}</dd></div>
-          <div><dt>Llegó</dt><dd>${esc(b.arrived)}</dd></div>
-          <div><dt>Último registro</dt><dd>${esc(b.ended)}</dd></div>
+          <div><dt>${tr('Tipo', 'Type')}</dt><dd>${esc(KIND[b.kind] || b.kind)}</dd></div>
+          <div><dt>${tr('Misión', 'Mission')}</dt><dd>${esc(b.mission)}</dd></div>
+          <div><dt>${tr('Lugar', 'Location')}</dt><dd>${esc(b.place)}</dd></div>
+          <div><dt>${tr('Llegó', 'Arrived')}</dt><dd>${esc(b.arrived)}</dd></div>
+          <div><dt>${tr('Último registro', 'Last record')}</dt><dd>${esc(b.ended)}</dd></div>
         </dl>
         <p class="stamp s-${b.status}">${st.label}</p>
         <dl class="stats">${stats}</dl>
       </div>`,
       // 2 · historia
-      `<div class="page"><h3 class="p-h">La historia</h3><p class="prose dropcap">${esc(b.story)}</p></div>`,
+      `<div class="page"><h3 class="p-h">${tr('La historia', 'The story')}</h3><p class="prose dropcap">${esc(b.story)}</p></div>`,
       // 3 · ciencia
-      `<div class="page"><h3 class="p-h">La ciencia que hizo posible</h3><p class="prose">${esc(b.science)}</p></div>`,
+      `<div class="page"><h3 class="p-h">${tr('La ciencia que hizo posible', 'The science it made possible')}</h3><p class="prose">${esc(b.science)}</p></div>`,
       // 4 · hoy
-      `<div class="page"><h3 class="p-h">¿Cómo está hoy?</h3><p class="prose">${esc(b.today)}</p>
+      `<div class="page"><h3 class="p-h">${tr('¿Cómo está hoy?', 'How is it today?')}</h3><p class="prose">${esc(b.today)}</p>
         <div class="status-note"><p class="stamp s-${b.status}">${st.label}</p><p>${st.text}</p></div></div>`,
       // 5 · dato curioso
-      `<div class="page page-fun"><div class="fun-art">${icon(b.kind)}</div><h3 class="p-h">Dato curioso</h3><p class="prose">${esc(b.fun || '')}</p></div>`,
+      `<div class="page page-fun"><div class="fun-art">${icon(b.kind)}</div><h3 class="p-h">${tr('Dato curioso', 'Fun fact')}</h3><p class="prose">${esc(b.fun || '')}</p></div>`,
       // 6 · fuentes
-      `<div class="page"><h3 class="p-h">Para seguir leyendo</h3><ul class="sources">${sources}</ul>
-        <p class="hint">Todos los enlaces llevan a archivos públicos de la NASA o de instituciones científicas.</p>
-        <button type="button" class="btn-return" data-close>Devolver al estante</button></div>`,
+      `<div class="page"><h3 class="p-h">${tr('Para seguir leyendo', 'Further reading')}</h3><ul class="sources">${sources}</ul>
+        <p class="hint">${tr('Todos los enlaces llevan a archivos públicos de la NASA o de instituciones científicas.', 'All links lead to public archives from NASA or scientific institutions.')}</p>
+        <button type="button" class="btn-return" data-close>${tr('Devolver al estante', 'Return to the shelf')}</button></div>`,
       // 7 · contraportada
       `<div class="cover back" style="--cloth:${CLOTH[b.location][hash(b.slug) % CLOTH[b.location].length]}">
-        <div class="cover-frame"><div class="cover-art small">${icon(b.kind)}</div><p class="back-note">Biblioteca de objetos<br>abandonados pero no olvidados</p></div>
+        <div class="cover-frame"><div class="cover-art small">${icon(b.kind)}</div><p class="back-note">${tr('Biblioteca de objetos<br>abandonados pero no olvidados', 'A library of objects<br>abandoned but not forgotten')}</p></div>
       </div>`,
     ];
   }
-  const PAGE_NAMES = ['Portada', 'Ficha', 'La historia', 'La ciencia', '¿Cómo está hoy?', 'Dato curioso', 'Para seguir leyendo', 'Contraportada'];
+  const PAGE_NAMES = EN
+    ? ['Cover', 'File', 'The story', 'The science', 'How is it today?', 'Fun fact', 'Further reading', 'Back cover']
+    : ['Portada', 'Ficha', 'La historia', 'La ciencia', '¿Cómo está hoy?', 'Dato curioso', 'Para seguir leyendo', 'Contraportada'];
 
   // ---------- lector ----------
   const reader = $('#reader');
@@ -596,27 +615,27 @@
     const data = Object.fromEntries(new FormData(form));
     msg.className = 'form-msg';
     if (!data.objeto || data.objeto.trim().length < 2) {
-      msg.textContent = 'Escribe el nombre del objeto o de la misión (al menos 2 letras).';
+      msg.textContent = tr('Escribe el nombre del objeto o de la misión (al menos 2 letras).', 'Write the name of the object or mission (at least 2 letters).');
       msg.classList.add('is-error');
       form.objeto.focus();
       return;
     }
     if (!state.client) {
-      msg.textContent = 'Modo demostración: conecta Supabase (ver README) para guardar sugerencias.';
+      msg.textContent = tr('Modo demostración: conecta Supabase (ver README) para guardar sugerencias.', 'Demo mode: connect Supabase (see README) to save suggestions.');
       msg.classList.add('is-warn');
       return;
     }
-    btn.disabled = true; btn.textContent = 'Enviando…';
+    btn.disabled = true; btn.textContent = tr('Enviando…', 'Sending…');
     const { error } = await state.client.from('sugerencias').insert({
       objeto: data.objeto.trim(), ubicacion: data.ubicacion, motivo: data.motivo?.trim() || null, autor: data.autor?.trim() || null,
     });
-    btn.disabled = false; btn.textContent = 'Enviar sugerencia';
+    btn.disabled = false; btn.textContent = tr('Enviar sugerencia', 'Send suggestion');
     if (error) {
-      msg.textContent = 'No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.';
+      msg.textContent = tr('No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.', 'It could not be saved. Check your connection and try again.');
       msg.classList.add('is-error');
       console.error(error);
     } else {
-      msg.textContent = `¡Gracias! «${data.objeto.trim()}» quedó anotado en el libro de sugerencias.`;
+      msg.textContent = tr(`¡Gracias! «${data.objeto.trim()}» quedó anotado en el libro de sugerencias.`, `Thank you! “${data.objeto.trim()}” has been added to the suggestion book.`);
       msg.classList.add('is-ok');
       form.reset();
     }

@@ -3,96 +3,98 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Abandonado pero no olvidado</title>
-  <meta name="description" content="Biblioteca virtual de las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo.">
+  <title data-en="Abandoned but not forgotten">Abandonado pero no olvidado</title>
+  <meta name="description" content="Biblioteca virtual de las máquinas que la NASA dejó en la Luna, en Marte y en el espacio profundo." data-en-content="A virtual library of the machines NASA left on the Moon, on Mars and in deep space.">
   <meta name="theme-color" content="#0f1219">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/i18n.js"></script>
 </head>
 <body>
   <div class="room" id="room">
     <header class="masthead">
-      <h1>Abandonado<br><em>pero no olvidado</em></h1>
-      <p class="lede">La biblioteca de las máquinas que la NASA dejó en la Luna, en Marte y camino a las estrellas. Elige un lomo para sacar el libro del estante. Los libros marcados con <strong class="mark-3d">3D</strong> traen una escena animada que cuenta su historia.</p>
+      <div class="masthead-lang"><span data-lang-switch></span></div>
+      <h1 data-en-html="Abandoned<br><em>but not forgotten</em>">Abandonado<br><em>pero no olvidado</em></h1>
+      <p class="lede" data-en-html="The library of the machines NASA left on the Moon, on Mars and on the way to the stars. Pick a spine to pull a book off the shelf. Books marked <strong class=&quot;mark-3d&quot;>3D</strong> come with an animated scene that tells their story.">La biblioteca de las máquinas que la NASA dejó en la Luna, en Marte y camino a las estrellas. Elige un lomo para sacar el libro del estante. Los libros marcados con <strong class="mark-3d">3D</strong> traen una escena animada que cuenta su historia.</p>
       <a class="btn-sim" href="https://wokwi.com/projects/478624277057314817" target="_blank" rel="noopener">
-        <span>Abrir el simulador en Wokwi</span><span class="btn-sim-icon" data-icon="link"></span>
+        <span data-en="Open the simulator on Wokwi">Abrir el simulador en Wokwi</span><span class="btn-sim-icon" data-icon="link"></span>
       </a>
       <a class="btn-sim btn-games" href="juegos/">
-        <span>Sala de juegos: sopa de letras, quiz y 3D</span>
+        <span data-en="Game room: word search, quiz and 3D">Sala de juegos: sopa de letras, quiz y 3D</span>
       </a>
     </header>
 
     <div class="controls" role="search">
-      <div class="segmented" role="radiogroup" aria-label="Estante">
-        <button type="button" role="radio" aria-checked="true" data-loc="todo">Todo</button>
-        <button type="button" role="radio" aria-checked="false" data-loc="luna">Luna</button>
-        <button type="button" role="radio" aria-checked="false" data-loc="marte">Marte</button>
-        <button type="button" role="radio" aria-checked="false" data-loc="espacio">Espacio profundo</button>
+      <div class="segmented" role="radiogroup" aria-label="Estante" data-en-aria-label="Shelf">
+        <button type="button" role="radio" aria-checked="true" data-loc="todo" data-en="All">Todo</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="luna" data-en="Moon">Luna</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="marte" data-en="Mars">Marte</button>
+        <button type="button" role="radio" aria-checked="false" data-loc="espacio" data-en="Deep space">Espacio profundo</button>
       </div>
       <label class="search">
         <span class="search-icon" data-icon="search"></span>
-        <span class="sr-only">Buscar un objeto</span>
-        <input id="q" type="search" placeholder="Buscar: rover, Voyager, hielo…" autocomplete="off">
+        <span class="sr-only" data-en="Search for an object">Buscar un objeto</span>
+        <input id="q" type="search" placeholder="Buscar: rover, Voyager, hielo…" data-en-placeholder="Search: rover, Voyager, ice…" autocomplete="off">
       </label>
-      <div class="legend" id="legend" aria-label="Filtrar por estado"></div>
+      <div class="legend" id="legend" aria-label="Filtrar por estado" data-en-aria-label="Filter by status"></div>
     </div>
 
     <p class="empty" id="empty" hidden></p>
 
     <main class="bookcase" id="bookcase" aria-live="polite">
-      <p class="loading">Desempolvando los estantes…</p>
+      <p class="loading" data-en="Dusting off the shelves…">Desempolvando los estantes…</p>
     </main>
 
     <section class="suggest" id="sugerir" aria-labelledby="sugerir-t">
       <div class="suggest-copy">
-        <h2 id="sugerir-t">¿Falta un libro?</h2>
-        <p>Hay más de 100 objetos de la NASA repartidos por el sistema solar. Propón uno y lo revisaremos para el próximo estante.</p>
+        <h2 id="sugerir-t" data-en="Is a book missing?">¿Falta un libro?</h2>
+        <p data-en="There are more than 100 NASA objects scattered across the solar system. Suggest one and we will review it for the next shelf.">Hay más de 100 objetos de la NASA repartidos por el sistema solar. Propón uno y lo revisaremos para el próximo estante.</p>
       </div>
       <form id="suggest-form" class="suggest-form" novalidate>
-        <label>Objeto o misión
-          <input name="objeto" required minlength="2" maxlength="120" placeholder="Ej.: Lunar Prospector">
+        <label><span data-en="Object or mission">Objeto o misión</span>
+          <input name="objeto" required minlength="2" maxlength="120" placeholder="Ej.: Lunar Prospector" data-en-placeholder="E.g.: Lunar Prospector">
         </label>
-        <label>¿Dónde está?
+        <label><span data-en="Where is it?">¿Dónde está?</span>
           <select name="ubicacion">
-            <option value="luna">Luna</option>
-            <option value="marte">Marte</option>
-            <option value="espacio">Espacio profundo</option>
+            <option value="luna" data-en="Moon">Luna</option>
+            <option value="marte" data-en="Mars">Marte</option>
+            <option value="espacio" data-en="Deep space">Espacio profundo</option>
           </select>
         </label>
-        <label class="wide">¿Por qué merece un libro?
-          <textarea name="motivo" rows="3" maxlength="600" placeholder="Cuéntanos qué hizo y qué descubrió"></textarea>
+        <label class="wide"><span data-en="Why does it deserve a book?">¿Por qué merece un libro?</span>
+          <textarea name="motivo" rows="3" maxlength="600" placeholder="Cuéntanos qué hizo y qué descubrió" data-en-placeholder="Tell us what it did and what it discovered"></textarea>
         </label>
-        <label>Tu nombre <span class="opt">(opcional)</span>
-          <input name="autor" maxlength="60" placeholder="Ej.: 5.º B">
+        <label><span data-en="Your name">Tu nombre</span> <span class="opt" data-en="(optional)">(opcional)</span>
+          <input name="autor" maxlength="60" placeholder="Ej.: 5.º B" data-en-placeholder="E.g.: 5th grade B">
         </label>
         <div class="form-actions">
-          <button type="submit" class="btn-primary">Enviar sugerencia</button>
+          <button type="submit" class="btn-primary" data-en="Send suggestion">Enviar sugerencia</button>
           <p class="form-msg" id="form-msg" role="status"></p>
         </div>
       </form>
     </section>
 
     <footer class="colophon">
-      <p>Datos: <span id="source-label">—</span> · Textos basados en archivos públicos de la NASA (enlaces dentro de cada libro).</p>
-      <p>Proyecto escolar inspirado en el reto «Abandonado pero no olvidado» del NASA Space Apps Challenge 2026. No es un sitio oficial de la NASA.</p>
+      <p><span data-en="Data:">Datos:</span> <span id="source-label">—</span> · <span data-en="Texts based on public NASA archives (links inside each book).">Textos basados en archivos públicos de la NASA (enlaces dentro de cada libro).</span></p>
+      <p data-en="A school project inspired by the “Abandoned but not forgotten” challenge of the NASA Space Apps Challenge 2026. This is not an official NASA website.">Proyecto escolar inspirado en el reto «Abandonado pero no olvidado» del NASA Space Apps Challenge 2026. No es un sitio oficial de la NASA.</p>
     </footer>
   </div>
 
   <!-- Lector: el libro abierto -->
-  <div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Libro abierto" hidden>
+  <div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Libro abierto" data-en-aria-label="Open book" hidden>
     <div class="reader-backdrop" data-close></div>
-    <button type="button" class="reader-close" data-close aria-label="Devolver al estante"><span data-icon="close"></span><span class="lbl">Devolver al estante</span></button>
+    <button type="button" class="reader-close" data-close aria-label="Devolver al estante" data-en-aria-label="Return to the shelf"><span data-icon="close"></span><span class="lbl" data-en="Return to the shelf">Devolver al estante</span></button>
     <div class="stage" id="stage">
       <div class="book" id="book"></div>
     </div>
     <figure class="diorama" id="diorama" hidden>
       <div class="dio-view">
-        <canvas id="dio-canvas" aria-label="Escena animada en 3D que cuenta la historia del objeto"></canvas>
-        <p class="dio-load">Preparando la escena…</p>
-        <p class="dio-err">No se pudo cargar la escena 3D. El libro sigue disponible.</p>
-        <p class="dio-hint">Arrastra para girar la vista</p>
+        <canvas id="dio-canvas" aria-label="Escena animada en 3D que cuenta la historia del objeto" data-en-aria-label="Animated 3D scene that tells the object's story"></canvas>
+        <p class="dio-load" data-en="Setting up the scene…">Preparando la escena…</p>
+        <p class="dio-err" data-en="The 3D scene could not be loaded. The book is still available.">No se pudo cargar la escena 3D. El libro sigue disponible.</p>
+        <p class="dio-hint" data-en="Drag to rotate the view">Arrastra para girar la vista</p>
       </div>
       <figcaption class="dio-cap" aria-live="polite">
         <div class="dio-steps" id="dio-steps"></div>
@@ -101,15 +103,16 @@
       </figcaption>
     </figure>
     <div class="reader-nav">
-      <button type="button" class="nav-btn" id="prev" aria-label="Página anterior"><span data-icon="prev"></span></button>
+      <button type="button" class="nav-btn" id="prev" aria-label="Página anterior" data-en-aria-label="Previous page"><span data-icon="prev"></span></button>
       <p class="page-label" id="page-label" aria-live="polite"></p>
-      <button type="button" class="nav-btn" id="next" aria-label="Página siguiente"><span data-icon="next"></span></button>
+      <button type="button" class="nav-btn" id="next" aria-label="Página siguiente" data-en-aria-label="Next page"><span data-icon="next"></span></button>
     </div>
   </div>
   <div class="fly-layer" id="fly-layer" aria-hidden="true"></div>
 
   <script src="js/config.js"></script>
   <script src="js/data-local.js"></script>
+  <script src="js/data-en.js"></script>
   <script src="js/icons.js"></script>
   <script src="js/scenes.js"></script>
   <script src="js/app.js"></script>

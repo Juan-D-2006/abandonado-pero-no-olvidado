@@ -66,6 +66,17 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Cabecera ---------- */
 .masthead { margin-bottom: clamp(28px, 5vw, 48px); }
+.masthead-lang { display: flex; justify-content: flex-end; margin: calc(-1 * clamp(16px, 4vw, 56px)) 0 18px; }
+
+/* Selector de idioma ES | EN */
+.lang-switch { display: inline-flex; padding: 3px; border-radius: 999px; background: rgba(241, 230, 204, 0.06); border: 1px solid rgba(241, 230, 204, 0.16); }
+.lang-switch button {
+  border: 0; background: none; cursor: pointer; padding: 5px 12px; border-radius: 999px;
+  font: 700 0.85rem/1 var(--f-ui); letter-spacing: 0.06em; color: var(--cream-dim);
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+.lang-switch button:hover { color: var(--cream); }
+.lang-switch button[aria-pressed='true'] { background: var(--cream); color: #1a140d; }
 .masthead h1 {
   margin: 0;
   font: 800 clamp(2.6rem, 7.4vw, 5.6rem)/0.94 var(--f-display);

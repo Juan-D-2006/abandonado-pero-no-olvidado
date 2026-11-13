@@ -4,6 +4,7 @@
 (() => {
   'use strict';
   const S = {};
+  const tr = (window.I18N && I18N.tr) || ((es) => es);
   const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
   const lerp = (a, b, t) => a + (b - a) * t;
   const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -238,11 +239,11 @@
     let prevT = 0, frozenAngle = 0;
     const xAt = (t) => (t < 7 ? -7 + 7 * inOut(t / 7) : t < 14 ? -4.2 * inOut((t - 7) / 7) : -4.2);
     const phases = [
-      { t: 0, y: '2004', text: 'Spirit aterriza en el cráter Gusev y empieza a explorar. Su misión debía durar 90 días.' },
-      { t: 7, y: '2006', text: 'Se traba su rueda delantera derecha. El equipo decide manejarlo marcha atrás, arrastrándola.' },
-      { t: 14, y: 'Descubrimiento', text: 'La rueda arrastrada raspa el suelo y deja al aire sílice blanca: señal de antiguas aguas termales.' },
-      { t: 18.5, y: '2009', text: 'Queda atrapado en la arena blanda de Troy. Sus ruedas giran, pero ya no avanza.' },
-      { t: 24, y: '2010', text: 'Llega el invierno marciano. Spirit deja de responder después de más de 6 años.' },
+      { t: 0, y: '2004', text: tr('Spirit aterriza en el cráter Gusev y empieza a explorar. Su misión debía durar 90 días.', 'Spirit lands in Gusev Crater and starts exploring. Its mission was meant to last 90 days.') },
+      { t: 7, y: '2006', text: tr('Se traba su rueda delantera derecha. El equipo decide manejarlo marcha atrás, arrastrándola.', 'Its front right wheel jams. The team decides to drive it backwards, dragging the wheel.') },
+      { t: 14, y: tr('Descubrimiento', 'Discovery'), text: tr('La rueda arrastrada raspa el suelo y deja al aire sílice blanca: señal de antiguas aguas termales.', 'The dragged wheel scrapes the ground and uncovers white silica: a sign of ancient hot springs.') },
+      { t: 18.5, y: '2009', text: tr('Queda atrapado en la arena blanda de Troy. Sus ruedas giran, pero ya no avanza.', 'It gets stuck in the soft sand at Troy. Its wheels spin, but it no longer moves.') },
+      { t: 24, y: '2010', text: tr('Llega el invierno marciano. Spirit deja de responder después de más de 6 años.', 'Martian winter arrives. Spirit stops responding after more than 6 years.') },
     ];
     function reset() { trail.forEach((m) => scene.remove(m)); trail.length = 0; lastTrailX = null; dust.clear(); }
     function update(t, dt) {
@@ -320,10 +321,10 @@
     const look = new T.Vector3(0, 0.4, 0); camera.position.set(-2, 1.6, 3.2);
     let prevT = 0, spin = 0, tipVel = 0;
     const phases = [
-      { t: 0, y: '2021', text: 'Ingenuity viaja escondido bajo la panza del rover Perseverance.' },
-      { t: 6, y: '19 abr 2021', text: 'Primer vuelo con motor en otro planeta: sube 3 metros durante 39 segundos.' },
-      { t: 11.5, y: 'Vuelo', text: (t) => `Debía volar 5 veces… vuelo n.º ${Math.min(72, 2 + Math.floor(70 * smooth(11.5, 18, t)))}` },
-      { t: 18, y: 'Ene 2024', text: 'En el vuelo 72 se rompe un aspa. Ingenuity descansa en Valinor Hills, guardando datos.' },
+      { t: 0, y: '2021', text: tr('Ingenuity viaja escondido bajo la panza del rover Perseverance.', 'Ingenuity travels tucked under the belly of the Perseverance rover.') },
+      { t: 6, y: tr('19 abr 2021', 'Apr 19, 2021'), text: tr('Primer vuelo con motor en otro planeta: sube 3 metros durante 39 segundos.', 'First powered flight on another planet: it rises 3 meters for 39 seconds.') },
+      { t: 11.5, y: tr('Vuelo', 'Flight'), text: (t) => { const k = Math.min(72, 2 + Math.floor(70 * smooth(11.5, 18, t))); return tr(`Debía volar 5 veces… vuelo n.º ${k}`, `It was meant to fly 5 times… flight no. ${k}`); } },
+      { t: 18, y: tr('Ene 2024', 'Jan 2024'), text: tr('En el vuelo 72 se rompe un aspa. Ingenuity descansa en Valinor Hills, guardando datos.', 'On flight 72 a blade breaks. Ingenuity rests at Valinor Hills, still storing data.') },
     ];
     // trayectoria del helicóptero: [inicio, fin, x0, x1, altura]
     const X0 = -1.5 + 3.2 * 0.35;
@@ -417,10 +418,10 @@
     const path = (u) => new T.Vector3(-1.2 + Math.sin(u * 2.4) * 4.5 + u * 3, 0, -0.4 + (1 - Math.cos(u * 2.4)) * 2.2);
     let prevT = 0;
     const phases = [
-      { t: 0, y: '1971', text: 'El rover viaja plegado junto al módulo lunar. Los astronautas lo despliegan tirando de unas cintas.' },
-      { t: 5, y: 'Apollo 15-17', text: 'Con él recorren kilómetros buscando rocas antiguas. En la Luna todo pesa seis veces menos.' },
-      { t: 14, y: 'Despedida', text: 'Al irse, lo dejan estacionado. Su cámara, controlada desde la Tierra, filma el despegue.' },
-      { t: 19, y: 'Hoy', text: 'Tres rovers siguen allí. Sin viento ni lluvia, sus huellas no se borran.' },
+      { t: 0, y: '1971', text: tr('El rover viaja plegado junto al módulo lunar. Los astronautas lo despliegan tirando de unas cintas.', 'The rover travels folded against the lunar module. The astronauts unfold it by pulling on straps.') },
+      { t: 5, y: 'Apollo 15-17', text: tr('Con él recorren kilómetros buscando rocas antiguas. En la Luna todo pesa seis veces menos.', 'With it they drive for kilometers looking for ancient rocks. On the Moon everything weighs six times less.') },
+      { t: 14, y: tr('Despedida', 'Farewell'), text: tr('Al irse, lo dejan estacionado. Su cámara, controlada desde la Tierra, filma el despegue.', 'When they leave, they park it. Its camera, controlled from Earth, films the liftoff.') },
+      { t: 19, y: tr('Hoy', 'Today'), text: tr('Tres rovers siguen allí. Sin viento ni lluvia, sus huellas no se borran.', 'Three rovers are still there. With no wind or rain, their tracks never fade.') },
     ];
     function reset() { tracks.forEach((m) => scene.remove(m)); tracks.length = 0; lastTrack = null; dust.clear(); flame.clear(); LM.ascent.position.y = 1.43; }
     function update(t, dt) {
@@ -498,15 +499,15 @@
     const beam = new T.Mesh(new T.CylinderGeometry(0.02, 0.06, 1, 8, 1, true), beamM); scene.add(beam);
     const pulse = new T.Mesh(new T.SphereGeometry(0.12, 12, 10), new T.MeshBasicMaterial({ color: 0xb6ffca, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false })); scene.add(pulse);
     const glow = new T.PointLight(0x5dff8a, 0, 4); glow.position.copy(panelHome).add(new T.Vector3(0, 0.3, 0)); scene.add(glow);
-    const tag = label(T, '+3,8 cm por año', '#b6ffca', 0.9); tag.visible = false; scene.add(tag);
+    const tag = label(T, tr('+3,8 cm por año', '+3.8 cm per year'), '#b6ffca', 0.9); tag.visible = false; scene.add(tag);
     const earthPt = earth.position.clone().add(new T.Vector3(0.9, -1.5, 0.9));
     const camera = new T.PerspectiveCamera(42, 1, 0.1, 400);
     const look = new T.Vector3(0, 0.5, 0); camera.position.set(3, 1.6, 3.5);
     const phases = [
-      { t: 0, y: '1969', text: 'Armstrong y Aldrin colocan en la Luna un panel con 100 prismas de vidrio.' },
-      { t: 5.5, y: 'Desde la Tierra', text: 'Un observatorio dispara un rayo láser hacia el panel.' },
-      { t: 10.5, y: '2,5 segundos', text: 'Los prismas devuelven la luz justo hacia donde vino: ida y vuelta en 2,5 segundos.' },
-      { t: 15.5, y: 'Hoy', text: 'Midiendo ese tiempo se descubrió que la Luna se aleja 3,8 cm cada año. ¡Sigue funcionando!' },
+      { t: 0, y: '1969', text: tr('Armstrong y Aldrin colocan en la Luna un panel con 100 prismas de vidrio.', 'Armstrong and Aldrin place a panel with 100 glass prisms on the Moon.') },
+      { t: 5.5, y: tr('Desde la Tierra', 'From Earth'), text: tr('Un observatorio dispara un rayo láser hacia el panel.', 'An observatory fires a laser beam at the panel.') },
+      { t: 10.5, y: tr('2,5 segundos', '2.5 seconds'), text: tr('Los prismas devuelven la luz justo hacia donde vino: ida y vuelta en 2,5 segundos.', 'The prisms send the light straight back where it came from: a round trip of 2.5 seconds.') },
+      { t: 15.5, y: tr('Hoy', 'Today'), text: tr('Midiendo ese tiempo se descubrió que la Luna se aleja 3,8 cm cada año. ¡Sigue funcionando!', 'Timing it revealed that the Moon drifts 3.8 cm farther away every year. It still works!') },
     ];
     function update(t, dt) {
       // el astronauta trae el panel y lo deja
@@ -598,12 +599,12 @@
     const look = new T.Vector3(); camera.position.set(4, 1.5, 6);
     let prevT = 0;
     const phases = [
-      { t: 0, y: '1977', text: 'Voyager 1 deja la Tierra rumbo a los planetas gigantes.' },
-      { t: 5, y: '1979', text: 'Pasa junto a Júpiter y descubre volcanes activos en su luna Ío.' },
-      { t: 11, y: '1980', text: 'Visita Saturno y estudia la atmósfera de Titán, su luna más grande.' },
-      { t: 16, y: '1990', text: 'Gira su cámara y fotografía la Tierra: un «pálido punto azul» a 6.000 millones de km.' },
-      { t: 21, y: '2012', text: 'Cruza la burbuja del Sol y entra al espacio interestelar.' },
-      { t: 26, y: 'Hoy', text: 'A casi un día-luz de casa, solo 2 de sus 10 instrumentos siguen encendidos.' },
+      { t: 0, y: '1977', text: tr('Voyager 1 deja la Tierra rumbo a los planetas gigantes.', 'Voyager 1 leaves Earth, heading for the giant planets.') },
+      { t: 5, y: '1979', text: tr('Pasa junto a Júpiter y descubre volcanes activos en su luna Ío.', 'It flies past Jupiter and discovers active volcanoes on its moon Io.') },
+      { t: 11, y: '1980', text: tr('Visita Saturno y estudia la atmósfera de Titán, su luna más grande.', 'It visits Saturn and studies the atmosphere of Titan, its largest moon.') },
+      { t: 16, y: '1990', text: tr('Gira su cámara y fotografía la Tierra: un «pálido punto azul» a 6.000 millones de km.', 'It turns its camera and photographs Earth: a “pale blue dot” 6 billion km away.') },
+      { t: 21, y: '2012', text: tr('Cruza la burbuja del Sol y entra al espacio interestelar.', 'It crosses the Sun’s bubble and enters interstellar space.') },
+      { t: 26, y: tr('Hoy', 'Today'), text: tr('A casi un día-luz de casa, solo 2 de sus 10 instrumentos siguen encendidos.', 'Almost one light-day from home, only 2 of its 10 instruments are still on.') },
     ];
     function update(t, dt) {
       if (t < prevT) wind.clear(); prevT = t;
@@ -679,10 +680,10 @@
     const camera = new T.PerspectiveCamera(45, 1, 0.1, 800); const look = new T.Vector3(); camera.position.set(3, 1, 5);
     const o = new T.Object3D(); let prevT = 0;
     const phases = [
-      { t: 0, y: '2006', text: 'New Horizons despega: la nave más rápida lanzada desde la Tierra hasta ese momento.' },
-      { t: 5, y: '2015', text: 'Tras 9 años y medio llega a Plutón y descubre un enorme «corazón» de hielo.' },
-      { t: 13, y: '2019', text: 'Visita Arrokoth, una roca helada con forma de muñeco de nieve.' },
-      { t: 19, y: 'Hoy', text: 'Sigue activa, explorando el cinturón de Kuiper en los confines del sistema solar.' },
+      { t: 0, y: '2006', text: tr('New Horizons despega: la nave más rápida lanzada desde la Tierra hasta ese momento.', 'New Horizons lifts off: the fastest spacecraft ever launched from Earth up to then.') },
+      { t: 5, y: '2015', text: tr('Tras 9 años y medio llega a Plutón y descubre un enorme «corazón» de hielo.', 'After nine and a half years it reaches Pluto and finds a huge icy “heart”.') },
+      { t: 13, y: '2019', text: tr('Visita Arrokoth, una roca helada con forma de muñeco de nieve.', 'It visits Arrokoth, an icy rock shaped like a snowman.') },
+      { t: 19, y: tr('Hoy', 'Today'), text: tr('Sigue activa, explorando el cinturón de Kuiper en los confines del sistema solar.', 'Still active, exploring the Kuiper Belt at the edge of the solar system.') },
     ];
     function update(t, dt) {
       if (t < prevT) streak.clear(); prevT = t;
