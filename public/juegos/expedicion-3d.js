@@ -20,6 +20,33 @@
     { id: 'surveyor', name: 'Surveyor 3', x: 8, z: 70,
       fact: 'Aterrizó en 1967 rebotando tres veces. Dos años y medio después, los astronautas de Apollo 12 llegaron caminando y se llevaron su cámara.' },
   ];
+  // Nombres y datos de los sitios en inglés y francés (el español está arriba)
+  const SITES_I18N = {
+    en: {
+      eagle: ['Eagle descent stage', 'Apollo 11, 1969. The bottom part of the lunar module served as a launch pad and stayed here, with a plaque that says “We came in peace for all mankind.”'],
+      reflector: ['Laser retroreflector', 'A panel of prisms that bounces back the light of lasers fired from Earth. It still works without power and measures the distance to the Moon to the millimeter.'],
+      lrv: ['Lunar Roving Vehicle (LRV)', 'Three of these electric cars were left on the Moon. Their wheels were made of steel mesh and the LRO spacecraft still photographs their tracks.'],
+      alsep: ['ALSEP science station', 'Seismometers and other instruments powered by plutonium-238. They measured moonquakes for almost 8 years, until 1977.'],
+      surveyor: ['Surveyor 3', 'It landed in 1967, bouncing three times. Two and a half years later, the Apollo 12 astronauts walked over and took its camera.'],
+    },
+    fr: {
+      eagle: ['Étage de descente de l’Eagle', 'Apollo 11, 1969. La partie basse du module lunaire a servi de rampe de lancement et est restée ici, avec une plaque qui dit « Nous sommes venus en paix au nom de toute l’humanité ».'],
+      reflector: ['Rétroréflecteur laser', 'Un panneau de prismes qui renvoie la lumière des lasers tirés depuis la Terre. Il fonctionne encore sans énergie et mesure la distance de la Lune au millimètre près.'],
+      lrv: ['Rover lunaire (LRV)', 'Trois de ces voitures électriques sont restées sur la Lune. Leurs roues étaient en treillis d’acier et la sonde LRO photographie encore leurs traces.'],
+      alsep: ['Station scientifique ALSEP', 'Des sismomètres et d’autres instruments alimentés au plutonium 238. Ils ont mesuré des séismes lunaires pendant presque 8 ans, jusqu’en 1977.'],
+      surveyor: ['Surveyor 3', 'Il s’est posé en 1967 en rebondissant trois fois. Deux ans et demi plus tard, les astronautes d’Apollo 12 sont venus à pied et ont emporté sa caméra.'],
+    },
+  };
+  const I = window.I18N || { lang: 'es', t: (k) => k };
+  const _t = (k, v) => I.t(k, v);
+  const ES_SITES = SITES.map((s) => [s.name, s.fact]);
+  function localizeSites() {
+    const tr = SITES_I18N[I.lang];
+    SITES.forEach((s, i) => { const v = (tr && tr[s.id]) || ES_SITES[i]; s.name = v[0]; s.fact = v[1]; });
+  }
+  localizeSites();
+  addEventListener('langchange', localizeSites);
+
   const CRATERS = [
     [-30, -10, 11, 3.2], [35, -10, 14, 3.8], [-20, 50, 9, 2.6], [70, -50, 16, 4.5], [-70, -55, 18, 5],
     [40, 70, 8, 2.2], [-45, 75, 12, 3.4], [80, 5, 7, 2], [-85, -10, 9, 2.6], [20, 25, 6, 1.6],
@@ -277,16 +304,16 @@
     reset();
     $('#panel-start').hidden = true; $('#panel-end').hidden = true; $('#compass').hidden = false;
     G.running = true; last = performance.now();
-    toast('¡En marcha!', 'Sigue la flecha dorada hasta la primera señal. Los haces de luz marcan los sitios por visitar.', 4000);
+    toast(_t('ex.go'), _t('ex.gop'), 4000);
   }
   function end(won) {
     G.running = false;
     $('#compass').hidden = true;
-    $('#end-k').textContent = won ? 'Expedición completa' : 'Batería agotada';
-    $('#end-t').textContent = won ? '¡Misión cumplida!' : 'El rover se detuvo';
+    $('#end-k').textContent = _t(won ? 'ex.won.k' : 'ex.lost.k');
+    $('#end-t').textContent = _t(won ? 'ex.won.t' : 'ex.lost.t');
     $('#end-p').textContent = won
-      ? `Visitaste los ${SITES.length} sitios en ${fmt(G.t)} y regresaste con ${Math.ceil(G.battery)}% de batería. Como los objetos de Apollo, tu rover se queda aquí, abandonado pero no olvidado.`
-      : `Llegaste a ${G.visited.size} de ${SITES.length} sitios. Recoge más celdas solares en el camino y planea la ruta más corta entre los faros.`;
+      ? _t('ex.won.p', { n: SITES.length, t: fmt(G.t), b: Math.ceil(G.battery) })
+      : _t('ex.lost.p', { v: G.visited.size, n: SITES.length });
     $('#panel-end').hidden = false;
     $('#again').focus({ preventScroll: true });
   }
@@ -325,7 +352,7 @@
       if (Math.hypot(c.position.x - G.x, c.position.z - G.z) < 2.2) {
         scene.remove(c); cells.splice(i, 1);
         G.battery = Math.min(100, G.battery + 20);
-        if (!$('#toast').classList.contains('on') || toastTimer < 2) toast('Celda solar', '+20% de batería.', 1500);
+        if (!$('#toast').classList.contains('on') || toastTimer < 2) toast(_t('ex.cell'), _t('ex.cellp'), 1500);
       }
     }
     // sitios

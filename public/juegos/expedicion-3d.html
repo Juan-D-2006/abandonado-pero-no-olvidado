@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-i18n-doc="ex.doc">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,13 +13,14 @@
 </head>
 <body class="play">
   <div class="game3d" id="game">
-    <canvas id="c" aria-label="Superficie lunar en 3D con tu rover"></canvas>
+    <canvas id="c" aria-label="Superficie lunar en 3D con tu rover" data-i18n-aria="ex.canvas"></canvas>
 
     <div class="g-top">
-      <a class="back" href="./">Juegos</a>
-      <span class="stat battery" id="battery">Batería <span class="bar"><span id="bat-bar"></span></span> <b id="bat">100%</b></span>
-      <span class="stat">Sitios <b id="sites">0/5</b></span>
-      <span class="stat">Tiempo <b id="time">0:00</b></span>
+      <a class="back" href="./" data-i18n="ex.back">Juegos</a>
+      <span class="stat battery" id="battery"><span data-i18n="ex.bat">Batería</span> <span class="bar"><span id="bat-bar"></span></span> <b id="bat">100%</b></span>
+      <span class="stat"><span data-i18n="ex.sites">Sitios</span> <b id="sites">0/5</b></span>
+      <span class="stat"><span data-i18n="g.time">Tiempo</span> <b id="time">0:00</b></span>
+      <span data-lang-slot></span>
     </div>
 
     <div class="compass" id="compass" hidden>
@@ -30,17 +31,17 @@
     <div class="paper toast" id="toast" role="status" aria-live="polite"><strong id="toast-t"></strong><p id="toast-p"></p></div>
 
     <div class="paper g-panel" id="panel-start">
-      <p class="kicker">Juego 3D</p>
-      <h2>Expedición lunar</h2>
-      <p>Eres el conductor de un pequeño rover explorador. Recorre la superficie de la Luna y visita los cinco objetos que dejaron las misiones de la NASA. La batería se gasta al avanzar: recoge las celdas solares doradas para recargarla.</p>
+      <p class="kicker" data-i18n="g.ex.k">Juego 3D</p>
+      <h2 data-i18n="g.ex.h">Expedición lunar</h2>
+      <p data-i18n="ex.intro">Eres el conductor de un pequeño rover explorador. Recorre la superficie de la Luna y visita los cinco objetos que dejaron las misiones de la NASA. La batería se gasta al avanzar: recoge las celdas solares doradas para recargarla.</p>
       <div class="keys">
-        <span><kbd>W</kbd> <kbd>↑</kbd></span><span>Avanzar</span>
-        <span><kbd>S</kbd> <kbd>↓</kbd></span><span>Frenar y retroceder</span>
-        <span><kbd>A</kbd> <kbd>D</kbd></span><span>Girar</span>
-        <span><kbd>Espacio</kbd></span><span>Impulso (gasta más batería)</span>
+        <span><kbd>W</kbd> <kbd>↑</kbd></span><span data-i18n="ex.fwd">Avanzar</span>
+        <span><kbd>S</kbd> <kbd>↓</kbd></span><span data-i18n="ex.rev">Frenar y retroceder</span>
+        <span><kbd>A</kbd> <kbd>D</kbd></span><span data-i18n="ex.turn">Girar</span>
+        <span><kbd data-i18n="ex.space">Espacio</kbd></span><span data-i18n="ex.boost">Impulso (gasta más batería)</span>
       </div>
-      <p>En la parte superior, la flecha te señala el sitio más cercano que aún no visitaste. En pantallas táctiles usa los botones de abajo.</p>
-      <div class="ws-actions"><button type="button" class="btn" id="play">Comenzar la expedición</button></div>
+      <p data-i18n="ex.arrow">En la parte superior, la flecha te señala el sitio más cercano que aún no visitaste. En pantallas táctiles usa los botones de abajo.</p>
+      <div class="ws-actions"><button type="button" class="btn" id="play" data-i18n="ex.start">Comenzar la expedición</button></div>
     </div>
 
     <div class="paper g-panel" id="panel-end" hidden>
@@ -48,15 +49,16 @@
       <h2 id="end-t"></h2>
       <p id="end-p"></p>
       <div class="ws-actions">
-        <button type="button" class="btn" id="again">Jugar otra vez</button>
-        <a class="btn btn-ghost" href="../">Ir a la biblioteca</a>
+        <button type="button" class="btn" id="again" data-i18n="g.again">Jugar otra vez</button>
+        <a class="btn btn-ghost" href="../" data-i18n="g.lib">Ir a la biblioteca</a>
       </div>
     </div>
 
     <div class="pad left" aria-hidden="true"><button data-k="left">◀</button><button data-k="right">▶</button></div>
     <div class="pad right" aria-hidden="true"><button data-k="boost">⚡</button><button data-k="back">▼</button><button data-k="fwd">▲</button></div>
-    <p class="g-err" id="err" hidden>No se pudo cargar el motor 3D. Revisa tu conexión a internet y recarga la página.</p>
+    <p class="g-err" id="err" data-i18n="ex.err" hidden>No se pudo cargar el motor 3D. Revisa tu conexión a internet y recarga la página.</p>
   </div>
+  <script src="../js/i18n.js"></script>
   <script src="expedicion-3d.js"></script>
 </body>
 </html>

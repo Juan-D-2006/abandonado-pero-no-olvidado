@@ -12,20 +12,16 @@
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const EASE_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)';
 
-  const LOCATIONS = {
-    luna: { title: 'La Luna', note: 'A 384.000 km de casa' },
-    marte: { title: 'Marte', note: 'Entre 55 y 400 millones de km' },
-    espacio: { title: 'Espacio profundo', note: 'Más allá de los planetas' },
-  };
-  const STATUS = {
-    activo: { label: 'Sigue funcionando', text: 'Esta máquina todavía trabaja y envía datos o presta servicio.' },
-    parcial: { label: 'Funciona a medias', text: 'Sigue viva, pero con menos energía o menos instrumentos que al inicio.' },
-    espera: { label: 'Esperando regreso', text: 'Fue dejada a propósito, guardada para una misión futura.' },
-    inactivo: { label: 'En reposo', text: 'Terminó su trabajo y descansa donde la dejaron.' },
-    perdido: { label: 'Señal perdida', text: 'Dejó de responder y la NASA dio por terminada su misión.' },
-    impacto: { label: 'Impacto planeado', text: 'Terminó su misión chocando a propósito para obtener datos.' },
-  };
-  const KIND = { rover: 'Rover', lander: 'Módulo de aterrizaje', orbiter: 'Orbitador', probe: 'Sonda', reflector: 'Experimento pasivo', instrument: 'Estación científica', impactor: 'Impactador', helicopter: 'Helicóptero', depot: 'Depósito de muestras' };
+  // Textos traducibles (ver js/i18n.js)
+  const I = window.I18N || { lang: 'es', t: (k) => k };
+  const _t = (k, v) => I.t(k, v);
+  const LOCATIONS = {};
+  ['luna', 'marte', 'espacio'].forEach((k) => Object.defineProperty(LOCATIONS, k, { enumerable: true, get: () => ({ title: _t('loc.' + k), note: _t('loc.' + k + '.note') }) }));
+  const STATUS = {};
+  ['activo', 'parcial', 'espera', 'inactivo', 'perdido', 'impacto'].forEach((k) => Object.defineProperty(STATUS, k, { enumerable: true, get: () => ({ label: _t('st.' + k), text: _t('st.' + k + '.t') }) }));
+  const kindName = (k) => { const s = _t('k.' + k); return s === 'k.' + k ? k : s; };
+  // Libro en el idioma actual: el original (español) + la traducción si existe
+  const L = (b) => { const tr = window.BOOKS_I18N && BOOKS_I18N[I.lang] && BOOKS_I18N[I.lang][b.slug]; return tr ? { ...b, ...tr } : b; };
   // Telas de encuadernación por estante
   const CLOTH = {
     luna: ['#3f4b5e', '#56617a', '#2f3a4c', '#4a5a6a', '#6a6f80'],
@@ -70,11 +66,15 @@
       state.source = 'fallback';
     }
     state.books = (books && books.length ? books : window.HARDWARE_LOCAL || []).slice().sort((a, b) => a.year - b.year);
-    $('#source-label').textContent = state.source === 'supabase' ? 'Supabase (en vivo)' : state.source === 'fallback' ? 'copia local (Supabase no respondió)' : 'copia local (modo demostración)';
+    renderSource();
     renderLegend();
     renderShelves();
     applyFilters();
     openFromHash();
+  }
+
+  function renderSource() {
+    $('#source-label').textContent = _t(state.source === 'supabase' ? 'src.supabase' : state.source === 'fallback' ? 'src.fallback' : 'src.demo');
   }
 
   // ---------- estantes ----------
@@ -84,10 +84,11 @@
     $('#legend').innerHTML = Object.entries(STATUS)
       .filter(([k]) => counts[k])
       .map(([k, v]) => `<button type="button" class="chip" data-status="${k}" aria-pressed="false"><i class="dot s-${k}"></i>${v.label}<span class="n">${counts[k]}</span></button>`)
-      .join('') + (window.SCENES ? `<button type="button" class="chip chip-3d" data-only3d aria-pressed="false"><i class="dot dot-3d"></i>Con escena 3D<span class="n">${state.books.filter((b) => SCENES[b.slug]).length}</span></button>` : '');
+      .join('') + (window.SCENES ? `<button type="button" class="chip chip-3d" data-only3d aria-pressed="false"><i class="dot dot-3d"></i>${_t('legend.3d')}<span class="n">${state.books.filter((b) => SCENES[b.slug]).length}</span></button>` : '');
   }
 
-  function spineHTML(b, i) {
+  function spineHTML(b0, i) {
+    const b = L(b0);
     const h = hash(b.slug);
     const cloth = CLOTH[b.location][h % CLOTH[b.location].length];
     const height = 80 + (h % 21); // 80–100 % del estante
@@ -107,9 +108,9 @@
       <section class="shelf" data-location="${loc}" aria-labelledby="sh-${loc}">
         <div class="plaque">
           <h2 id="sh-${loc}">${LOCATIONS[loc].title}</h2>
-          <p><span class="count">${list.length}</span> volúmenes · ${LOCATIONS[loc].note}</p>
+          <p><span class="count">${list.length}</span> ${_t('shelf.vol')} · ${LOCATIONS[loc].note}</p>
         </div>
-        <div class="shelf-row">${list.map((b) => spineHTML(b, i++)).join('')}<span class="bookend" aria-hidden="true"></span><a class="ghost" href="#sugerir" data-suggest="${loc}"><span>Propón un libro</span></a></div>
+        <div class="shelf-row">${list.map((b) => spineHTML(b, i++)).join('')}<span class="bookend" aria-hidden="true"></span><a class="ghost" href="#sugerir" data-suggest="${loc}"><span>${_t('shelf.suggest')}</span></a></div>
         <div class="board" aria-hidden="true"></div>
       </section>`).join('');
   }
@@ -118,7 +119,8 @@
     if (state.statuses.size && !state.statuses.has(b.status)) return false;
     if (state.only3d && !(window.SCENES && SCENES[b.slug])) return false;
     if (!state.q) return true;
-    const hay = `${b.name} ${b.mission} ${b.place} ${KIND[b.kind] || ''} ${b.story} ${b.science}`.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    const lb = L(b);
+    const hay = `${lb.name} ${lb.mission} ${lb.place} ${kindName(b.kind)} ${lb.story} ${lb.science} ${b.name} ${b.mission}`.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     return hay.includes(state.q);
   }
 
@@ -140,7 +142,7 @@
     });
     const empty = $('#empty');
     empty.hidden = shown > 0;
-    if (!shown) empty.textContent = state.q ? `Ningún libro coincide con «${$('#q').value.trim()}». Prueba con otra palabra o quita los filtros.` : 'No hay libros con esos filtros. Quita alguno para ver más.';
+    if (!shown) empty.textContent = state.q ? _t('empty.q', { q: $('#q').value.trim() }) : _t('empty.f');
   }
 
   // Controles
@@ -173,7 +175,8 @@
   });
 
   // ---------- páginas ----------
-  function pagesFor(b) {
+  function pagesFor(b0) {
+    const b = L(b0);
     const st = STATUS[b.status];
     const sources = (b.sources || []).map((s) => `<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}<span class="ext">${ICONS.link}</span></a></li>`).join('');
     const stats = (b.stats || []).map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
@@ -190,37 +193,36 @@
       </div>`,
       // 1 · ficha
       `<div class="page">
-        <h3 class="p-h">Ficha del objeto</h3>
+        <h3 class="p-h">${_t('p.card')}</h3>
         <dl class="facts">
-          <div><dt>Tipo</dt><dd>${esc(KIND[b.kind] || b.kind)}</dd></div>
-          <div><dt>Misión</dt><dd>${esc(b.mission)}</dd></div>
-          <div><dt>Lugar</dt><dd>${esc(b.place)}</dd></div>
-          <div><dt>Llegó</dt><dd>${esc(b.arrived)}</dd></div>
-          <div><dt>Último registro</dt><dd>${esc(b.ended)}</dd></div>
+          <div><dt>${_t('f.type')}</dt><dd>${esc(kindName(b.kind))}</dd></div>
+          <div><dt>${_t('f.mission')}</dt><dd>${esc(b.mission)}</dd></div>
+          <div><dt>${_t('f.place')}</dt><dd>${esc(b.place)}</dd></div>
+          <div><dt>${_t('f.arrived')}</dt><dd>${esc(b.arrived)}</dd></div>
+          <div><dt>${_t('f.ended')}</dt><dd>${esc(b.ended)}</dd></div>
         </dl>
         <p class="stamp s-${b.status}">${st.label}</p>
         <dl class="stats">${stats}</dl>
       </div>`,
       // 2 · historia
-      `<div class="page"><h3 class="p-h">La historia</h3><p class="prose dropcap">${esc(b.story)}</p></div>`,
+      `<div class="page"><h3 class="p-h">${_t('p.story')}</h3><p class="prose dropcap">${esc(b.story)}</p></div>`,
       // 3 · ciencia
-      `<div class="page"><h3 class="p-h">La ciencia que hizo posible</h3><p class="prose">${esc(b.science)}</p></div>`,
+      `<div class="page"><h3 class="p-h">${_t('p.science')}</h3><p class="prose">${esc(b.science)}</p></div>`,
       // 4 · hoy
-      `<div class="page"><h3 class="p-h">¿Cómo está hoy?</h3><p class="prose">${esc(b.today)}</p>
+      `<div class="page"><h3 class="p-h">${_t('p.today')}</h3><p class="prose">${esc(b.today)}</p>
         <div class="status-note"><p class="stamp s-${b.status}">${st.label}</p><p>${st.text}</p></div></div>`,
       // 5 · dato curioso
-      `<div class="page page-fun"><div class="fun-art">${icon(b.kind)}</div><h3 class="p-h">Dato curioso</h3><p class="prose">${esc(b.fun || '')}</p></div>`,
+      `<div class="page page-fun"><div class="fun-art">${icon(b.kind)}</div><h3 class="p-h">${_t('p.fun')}</h3><p class="prose">${esc(b.fun || '')}</p></div>`,
       // 6 · fuentes
-      `<div class="page"><h3 class="p-h">Para seguir leyendo</h3><ul class="sources">${sources}</ul>
-        <p class="hint">Todos los enlaces llevan a archivos públicos de la NASA o de instituciones científicas.</p>
-        <button type="button" class="btn-return" data-close>Devolver al estante</button></div>`,
+      `<div class="page"><h3 class="p-h">${_t('p.more')}</h3><ul class="sources">${sources}</ul>
+        <p class="hint">${_t('p.hint')}</p>
+        <button type="button" class="btn-return" data-close>${_t('reader.close')}</button></div>`,
       // 7 · contraportada
       `<div class="cover back" style="--cloth:${CLOTH[b.location][hash(b.slug) % CLOTH[b.location].length]}">
-        <div class="cover-frame"><div class="cover-art small">${icon(b.kind)}</div><p class="back-note">Biblioteca de objetos<br>abandonados pero no olvidados</p></div>
+        <div class="cover-frame"><div class="cover-art small">${icon(b.kind)}</div><p class="back-note">${_t('p.back')}</p></div>
       </div>`,
     ];
   }
-  const PAGE_NAMES = ['Portada', 'Ficha', 'La historia', 'La ciencia', '¿Cómo está hoy?', 'Dato curioso', 'Para seguir leyendo', 'Contraportada'];
 
   // ---------- lector ----------
   const reader = $('#reader');
@@ -295,7 +297,7 @@
     });
     bookEl.style.transform = `translateX(${bookOffset()}px)`;
     const face = currentFace();
-    $('#page-label').textContent = `${PAGE_NAMES[face] || ''} · ${face + 1} / ${R.L * 2}`;
+    $('#page-label').textContent = `${_t('pn')[face] || ''} · ${face + 1} / ${R.L * 2}`;
     $('#prev').disabled = R.flipped === 0;
     $('#next').disabled = R.flipped === R.L || (R.single && R.flipped === R.L);
   }
@@ -466,7 +468,7 @@
     DIO.el.hidden = false; DIO.el.classList.remove('is-error'); DIO.el.classList.add('is-loading');
     $('#dio-year').textContent = ''; $('#dio-text').textContent = ''; $('#dio-steps').innerHTML = '';
     // un lienzo nuevo en cada apertura (el anterior perdió su contexto WebGL al cerrarse)
-    const fresh = document.createElement('canvas'); fresh.id = 'dio-canvas'; fresh.setAttribute('aria-label', DIO.canvas.getAttribute('aria-label'));
+    const fresh = document.createElement('canvas'); fresh.id = 'dio-canvas'; fresh.setAttribute('aria-label', _t('dio.aria'));
     DIO.canvas.replaceWith(fresh); DIO.canvas = fresh;
     requestAnimationFrame(() => DIO.el.classList.add('is-on'));
     try { await loadThree(); } catch (e) { console.warn(e); DIO.el.classList.remove('is-loading'); DIO.el.classList.add('is-error'); return; }
@@ -480,6 +482,8 @@
     r.shadowMap.enabled = true; r.shadowMap.type = T.PCFSoftShadowMap;
     r.outputEncoding = T.sRGBEncoding; r.toneMapping = T.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
     DIO.inst = SCENES[slug](T);
+    DIO.inst._orig = DIO.inst.phases.map((p) => ({ y: p.y, text: p.text }));
+    localizeScene();
     DIO.t = 0; DIO.phase = -1; DIO.txt = ''; DIO.drag = DIO.dragT = 0;
     $('#dio-steps').innerHTML = DIO.inst.phases.map(() => '<span><i></i></span>').join('');
     sizeScene();
@@ -516,6 +520,19 @@
       r.render(inst.scene, cam);
     };
     DIO.raf = requestAnimationFrame(loop);
+  }
+  // Textos de la escena en el idioma actual (js/i18n-books-*.js)
+  function localizeScene() {
+    const inst = DIO.inst; if (!inst || !inst._orig) return;
+    const tr = window.SCENES_I18N && SCENES_I18N[I.lang] && SCENES_I18N[I.lang][DIO.slug];
+    inst.phases.forEach((p, i) => {
+      const o = inst._orig[i];
+      if (!tr || !tr[i]) { p.y = o.y; p.text = o.text; return; }
+      p.y = tr[i][0];
+      const txt = tr[i][1];
+      p.text = typeof o.text === 'function' ? (t) => txt.replace('{n}', (String(o.text(t)).match(/(\d+)\s*$/) || ['', ''])[1]) : txt;
+    });
+    DIO.phase = -1; DIO.txt = '';
   }
   function stopScene() {
     DIO.slug = null;
@@ -596,29 +613,50 @@
     const data = Object.fromEntries(new FormData(form));
     msg.className = 'form-msg';
     if (!data.objeto || data.objeto.trim().length < 2) {
-      msg.textContent = 'Escribe el nombre del objeto o de la misión (al menos 2 letras).';
+      msg.textContent = _t('sug.short');
       msg.classList.add('is-error');
       form.objeto.focus();
       return;
     }
     if (!state.client) {
-      msg.textContent = 'Modo demostración: conecta Supabase (ver README) para guardar sugerencias.';
+      msg.textContent = _t('sug.demo');
       msg.classList.add('is-warn');
       return;
     }
-    btn.disabled = true; btn.textContent = 'Enviando…';
+    btn.disabled = true; btn.textContent = _t('sug.sending');
     const { error } = await state.client.from('sugerencias').insert({
       objeto: data.objeto.trim(), ubicacion: data.ubicacion, motivo: data.motivo?.trim() || null, autor: data.autor?.trim() || null,
     });
-    btn.disabled = false; btn.textContent = 'Enviar sugerencia';
+    btn.disabled = false; btn.textContent = _t('sug.send');
     if (error) {
-      msg.textContent = 'No se pudo guardar. Revisa tu conexión e inténtalo de nuevo.';
+      msg.textContent = _t('sug.fail');
       msg.classList.add('is-error');
       console.error(error);
     } else {
-      msg.textContent = `¡Gracias! «${data.objeto.trim()}» quedó anotado en el libro de sugerencias.`;
+      msg.textContent = _t('sug.ok', { obj: data.objeto.trim() });
       msg.classList.add('is-ok');
       form.reset();
+    }
+  });
+
+  // ---------- cambio de idioma ----------
+  addEventListener('langchange', () => {
+    $('#form-msg').textContent = ''; $('#form-msg').className = 'form-msg';
+    if (!state.books.length) return;
+    renderSource();
+    renderLegend();
+    $$('#legend [data-status]').forEach((c) => c.setAttribute('aria-pressed', String(state.statuses.has(c.dataset.status))));
+    const c3 = $('#legend [data-only3d]'); if (c3) c3.setAttribute('aria-pressed', String(state.only3d));
+    renderShelves();
+    applyFilters();
+    if (R.open && R.book) {
+      const f = R.flipped, side = R.side;
+      buildBook(R.book);
+      R.flipped = f; R.side = side;
+      layout();
+      R.spine = $(`.spine[data-slug="${CSS.escape(R.book.slug)}"]`);
+      if (R.spine) R.spine.classList.add('is-out');
+      localizeScene();
     }
   });
 
